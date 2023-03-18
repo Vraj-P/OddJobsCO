@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Button, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { makeStyles } from 'tss-react/mui';
 import { Link } from 'react-router-dom';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 // import { useApolloClient } from '@apollo/client';
 
 const Search = styled('div')(({ theme }) => ({

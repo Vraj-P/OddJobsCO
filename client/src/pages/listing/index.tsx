@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardContent, Typography, Button } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles()((theme) => ({
   container: {
@@ -33,15 +34,50 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+interface ListingData {
+  title: string;
+  id: number;
+  name: string;
+  phone: string;
+  email: string;
+  description: string;
+}
+
+const testListingData: ListingData[] = [
+  {
+    id: 1,
+    title: 'Listing 1',
+    name: "Name",
+    phone: "+1-xxx-xxx-xxxx",
+    email: "xxxxx@xxx.com",
+    description: "Lorem ipsum dolor sit amet, mazim mandamus pri id, deserunt persequeris has et, eu scripta vivendum cum. Cu modus suscipiantur est. Ne eos odio dicit iriure, oratio laudem erroribus an vis. Alterum constituam ex has, eu duo detracto patrioque. In mandamus dissentiunt mea, duo ea mutat postea accumsan. Minimum adipiscing nam in, facilis blandit prodesset ea eos.",
+  },
+  {
+    id: 2,
+    title: 'Listing 2',
+    name: "Name",
+    phone: "+1-xxx-xxx-xxxx",
+    email: "xxxxx@xxx.com",
+    description: "Lorem ipsum dolor sit amet, mazim mandamus pri id, deserunt persequeris has et, eu scripta vivendum cum. Cu modus suscipiantur est. Ne eos odio dicit iriure, oratio laudem erroribus an vis. Alterum constituam ex has, eu duo detracto patrioque. In mandamus dissentiunt mea, duo ea mutat postea accumsan. Minimum adipiscing nam in, facilis blandit prodesset ea eos.",
+  },
+  {
+    id: 3,
+    title: 'Listing 3',
+    name: "Name",
+    phone: "+1-xxx-xxx-xxxx",
+    email: "xxxxx@xxx.com",
+    description: "Lorem ipsum dolor sit amet, mazim mandamus pri id, deserunt persequeris has et, eu scripta vivendum cum. Cu modus suscipiantur est. Ne eos odio dicit iriure, oratio laudem erroribus an vis. Alterum constituam ex has, eu duo detracto patrioque. In mandamus dissentiunt mea, duo ea mutat postea accumsan. Minimum adipiscing nam in, facilis blandit prodesset ea eos.",
+  },
+];
+
+
 function Listing() {
   const { classes } = useStyles();
+  // we would take this id and pass it in  a get query to get the listing data
+  const { id } = useParams();
 
-  const title = "Title";
-  const name = "Name";
-  const phone = "+1-xxx-xxx-xxxx";
-  const email = "xxxxx@xxx.com";
-  const description =
-    "Lorem ipsum dolor sit amet, mazim mandamus pri id, deserunt persequeris has et, eu scripta vivendum cum. Cu modus suscipiantur est. Ne eos odio dicit iriure, oratio laudem erroribus an vis. Alterum constituam ex has, eu duo detracto patrioque. In mandamus dissentiunt mea, duo ea mutat postea accumsan. Minimum adipiscing nam in, facilis blandit prodesset ea eos.";
+  // error checking must be done
+  const { title, name, phone, email, description } = testListingData[Number(id)-1];
 
   const handleClick = () => {
     alert("Contact Creator");
