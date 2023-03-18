@@ -2,6 +2,7 @@ import React from "react";
 import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import ListingCard from "../listings/components/ListingCard";
+import { TestListingData, TestListingCardData } from "../../testingData";
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -22,24 +23,10 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-interface ListingCardData {
-  title: string;
-  id: number;
-}
-
-const testListings: ListingCardData[] = [
-  { id: 1, title: 'Listing 1' },
-  { id: 2, title: 'Listing 2' },
-  { id: 3, title: 'Listing 3' },
-];
-
 const UserProfile = () => {
   const { classes } = useStyles();
 
-  const name = "Name";
-  const title = "developer";
-  const email = "xxxxx@xxx.com";
-  const phone = "+1-xxx-xxx-xxxx";
+  const { title, name, phone, email } = TestListingData[0];
 
   return (
     <div className={classes.root}>
@@ -84,7 +71,7 @@ const UserProfile = () => {
           </Grid>
         </Grid>
         <Grid container spacing={2}>
-          {testListings.map((listing) => (
+          {TestListingCardData.map((listing) => (
             <Grid item xs={12} sm={12} md={12}>
               <ListingCard id={listing.id} title={listing.title} />
             </Grid>
