@@ -1,41 +1,44 @@
 import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
+import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles()((theme) => {
-    return ({
-        root: {
-            flexGrow: 1,
+const useStyles = makeStyles()((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    title: {
+        flexGrow: 1,
+        [theme.breakpoints.down('sm')]: {
+            display: 'none',
         },
-        menuButton: {
-            marginRight: theme.spacing(2),
+    },
+    button: {
+        marginLeft: theme.spacing(2),
+        [theme.breakpoints.down('xs')]: {
+            marginLeft: theme.spacing(1),
+            fontSize: '0.75rem',
         },
-        title: {
-            flexGrow: 1,
-        },
-    });
-});
+    },
+}));
 
 function TopBar() {
     const { classes, cx } = useStyles();
 
     return (
-        <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton edge="start" className={cx(classes.menuButton)} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" className={cx(classes.title)}>
-                        My App
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-        </div>
+        <AppBar position="static" className={cx(classes.root)}>
+            <Toolbar>
+                <Typography variant="h6" className={cx(classes.title)}>
+                    Odd Jobs Co.
+                </Typography>
+                <Button color="inherit" component={Link} to="/listings" className={cx(classes.button)}>
+                    Listings
+                </Button>
+                <Button color="inherit" component={Link} to="/profile" className={cx(classes.button)}>
+                    Profile
+                </Button>
+            </Toolbar>
+        </AppBar>
     );
 }
 

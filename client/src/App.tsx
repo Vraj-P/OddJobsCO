@@ -7,8 +7,8 @@ import TopBar from "./components/TopBar";
 function App() {
   return (
       <div>
-          <TopBar/>
           <Router>
+              <TopBar/>
               <Routes />
           </Router>
       </div>
