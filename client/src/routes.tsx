@@ -10,7 +10,7 @@ const Routes: React.FC = () => {
     <AppRoutes>
       <Route path="/" Component={Home} />
       <Route path="/profile" Component={ProfilePage} />
-      <Route path="/listing" Component={ListingPage} />
+      <Route path="/listing/:id" Component={ListingPage} />
       <Route path="/listings" Component={ListingsPage} />
     </AppRoutes>
   );

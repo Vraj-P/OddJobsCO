@@ -4,13 +4,14 @@ import { makeStyles } from 'tss-react/mui';
 import { Grid } from '@mui/material';
 
 interface ListingCardData {
-    name: string;
+    title: string;
+    id: number;
 }
 
 const testListings: ListingCardData[] = [
-    { name: 'Listing 1' },
-    { name: 'Listing 2' },
-    { name: 'Listing 3' },
+    { id: 1, title: 'Listing 1' },
+    { id: 2, title: 'Listing 2' },
+    { id: 3, title: 'Listing 3' },
 ];
 
 const useStyles = makeStyles()({
@@ -31,7 +32,7 @@ function ListingsPage() {
                 <Grid container spacing={2}>
                     {testListings.map((listing) => (
                         <Grid item xs={12} sm={12} md={12}>
-                            <ListingCard name={listing.name} />
+                            <ListingCard id={listing.id} title={listing.title} />
                         </Grid>
                     ))}
                 </Grid>
