@@ -33,7 +33,7 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-function ListingCard() {
+function Listing() {
   const { classes } = useStyles();
 
   const title = "Title";
@@ -95,4 +95,4 @@ function ListingCard() {
   );
 }
 
-export default ListingCard;
+export default Listing;
