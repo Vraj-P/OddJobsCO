@@ -3,6 +3,7 @@ import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import ListingCard from "../listings/components/ListingCard";
 import { TestListingData, TestListingCardData } from "../../testingData";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -25,8 +26,10 @@ const useStyles = makeStyles()((theme) => ({
 
 const UserProfile = () => {
   const { classes } = useStyles();
+  // we would take this id and pass it in  a get query to get the listing data
+  const { id } = useParams();
 
-  const { title, name, phone, email } = TestListingData[0];
+  const { title, name, phone, email } = TestListingData[Number(id)-1];
 
   return (
     <div className={classes.root}>
