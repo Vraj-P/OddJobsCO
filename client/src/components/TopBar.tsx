@@ -47,22 +47,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const useStyles = makeStyles()((theme) => ({
-    root: {
-        flexGrow: 1,
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
     },
-    title: {
-        flexGrow: 1,
-        [theme.breakpoints.down('sm')]: {
-            display: 'none',
-        },
+  },
+  button: {
+    marginLeft: theme.spacing(2),
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: theme.spacing(1),
+      fontSize: "0.75rem",
     },
-    button: {
-        marginLeft: theme.spacing(2),
-        [theme.breakpoints.down('xs')]: {
-            marginLeft: theme.spacing(1),
-            fontSize: '0.75rem',
-        },
-    },
+  },
 }));
 
 function TopBar() {
