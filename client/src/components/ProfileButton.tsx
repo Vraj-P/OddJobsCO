@@ -32,6 +32,10 @@ function ProfileButton() {
         logout();
     };
 
+    const handleLProfileClick = () => {
+        handleMenuClose();
+    };
+
     const logout = () => {
         console.log('logged out');
     }
@@ -51,7 +55,7 @@ function ProfileButton() {
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
             >
-                <MenuItem component={Link} to={`/profile/${id}`}>
+                <MenuItem onClick={handleLProfileClick} component={Link} to={`/profile/${id}`}>
                     <ListItemIcon>
                         <AccountCircleIcon />
                     </ListItemIcon>
