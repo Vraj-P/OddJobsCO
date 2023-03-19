@@ -36,7 +36,9 @@ export const CreateEditPage = (editFlag: boolean) => {
 
   const handleListingSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert("submitted");
+    alert(
+      "title: " + listingData.title + " description: " + listingData.description
+    );
   };
 
   const handleListingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
