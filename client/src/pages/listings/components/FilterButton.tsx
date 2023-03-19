@@ -55,7 +55,7 @@ function FilterButton (props: FilterButtonProps) {
 
     return (
         <>
-            <Button variant="outlined" color="primary" onClick={handleClick}>
+            <Button disableRipple = {true} variant="contained" color="primary" onClick={handleClick}>
                 Filter
             </Button>
             <Menu
@@ -83,6 +83,7 @@ function FilterButton (props: FilterButtonProps) {
                                         key={option.value}
                                         control={
                                             <Checkbox
+                                                disableRipple = {true}
                                                 checked={(filterState[group.label] ?? []).includes(option.value)}
                                                 onChange={handleCheckboxChange(group.label, option.value)}
                                                 name={option.label}

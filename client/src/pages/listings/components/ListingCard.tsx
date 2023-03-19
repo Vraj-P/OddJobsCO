@@ -38,6 +38,7 @@ function ListingCard(props : ListingCardProps) {
                 </Typography>
             </CardContent>
             <Button
+                disableRipple = {true}
                 className={cx(classes.detailsButton)}
                 variant="contained"
                 color="primary"
