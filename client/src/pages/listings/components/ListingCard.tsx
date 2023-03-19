@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from 'tss-react/mui';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import {ListingCardData} from "../../../types";
 
 const useStyles = makeStyles()((theme) => ({
     card: {
@@ -22,12 +23,7 @@ const useStyles = makeStyles()((theme) => ({
     },
 }));
 
-interface ListingCardProps {
-    title: string;
-    id: number;
-}
-
-function ListingCard(props : ListingCardProps) {
+function ListingCard(props : ListingCardData) {
     const { classes, cx } = useStyles();
     const { title, id } = props;
     return (

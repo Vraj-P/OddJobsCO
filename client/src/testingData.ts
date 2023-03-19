@@ -1,24 +1,4 @@
-interface ListingData {
-    title: string;
-    id: number;
-    name: string;
-    phone: string;
-    email: string;
-    description: string;
-}
-
-interface ListingCardData {
-    title: string;
-    id: number;
-}
-
-interface UserData {
-    title: string;
-    id: number;
-    name: string;
-    phone: string;
-    email: string;
-}
+import {FilterGroup, ListingCardData, ListingData, UserData} from "./types";
 
 export const TestListingData: ListingData[] = [
     {
@@ -75,15 +55,13 @@ export const GetUser = (id: number) => {
     return TestUserData[id];
 }
 
-// export const CurrentUserData: ListingData
-
 export const TestListingCardData: ListingCardData[] = [
     { id: 1, title: 'Listing 1' },
     { id: 2, title: 'Listing 2' },
     { id: 3, title: 'Listing 3' },
 ];
 
-export const TestFilterGroups = [
+export const TestFilterGroups: FilterGroup[] = [
     {
         label: 'Job Type',
         options: [
