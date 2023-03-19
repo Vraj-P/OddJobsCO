@@ -36,7 +36,7 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 function Listing() {
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
   // we would take this id and pass it in  a get query to get the listing data
   const { id } = useParams();
 
@@ -48,29 +48,29 @@ function Listing() {
   };
 
   return (
-    <div className={classes.container}>
-      <Card className={classes.root}>
+    <div className={cx(classes.container)}>
+      <Card className={cx(classes.root)}>
         <CardContent>
-          <Typography className={classes.title} variant="h5" component="h2">
+          <Typography className={cx(classes.title)} variant="h5" component="h2">
             {title}
           </Typography>
-          <Typography className={classes.subtitle}>
+          <Typography className={cx(classes.subtitle)}>
             <Typography
-              className={classes.userInfo}
+              className={cx(classes.userInfo)}
               color="textSecondary"
               gutterBottom
             >
               Creator: {name}
             </Typography>
             <Typography
-              className={classes.userInfo}
+              className={cx(classes.userInfo)}
               color="textSecondary"
               gutterBottom
             >
               Phone: {phone}
             </Typography>
             <Typography
-              className={classes.userInfo}
+              className={cx(classes.userInfo)}
               color="textSecondary"
               gutterBottom
             >
@@ -82,7 +82,7 @@ function Listing() {
             {description}
           </Typography>
           <Button
-            className={classes.button}
+            className={cx(classes.button)}
             variant="contained"
             color="primary"
             onClick={handleClick}
