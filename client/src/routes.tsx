@@ -9,7 +9,7 @@ const Routes: React.FC = () => {
   return (
     <AppRoutes>
       <Route path="/" Component={Home} />
-      <Route path="/profile" Component={ProfilePage} />
+      <Route path="/profile/:id" Component={ProfilePage} />
       <Route path="/listing/:id" Component={ListingPage} />
       <Route path="/listings" Component={ListingsPage} />
     </AppRoutes>
