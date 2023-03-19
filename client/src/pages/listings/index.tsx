@@ -22,50 +22,34 @@ const useStyles = makeStyles()({
 function ListingsPage() {
   const { classes, cx } = useStyles();
 
-  const [filterState, setFilterState] = useState({});
-
-  const handleApplyFilter = (newFilterState: any) => {
-    setFilterState(newFilterState);
-    console.log(filterState);
-  };
-
-  return (
-    <div>
-      <div className={cx(classes.container)}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={12} md={12}>
-            <Grid container>
-              <Grid item xs={6} sm={6} md={6}>
-                <Typography variant="h5" component="h2">
-                  Showing {TestListingCardData.length} listings
-                </Typography>
+    return (
+      <div>
+        <div className={cx(classes.container)}>
+          <Grid container spacing={2}>
+              <Grid item xs={12} sm={12} md={12}>
+                  <Grid container>
+                      <Grid item xs={6} sm={6} md={6}>
+                          <Typography variant="h5" component="h2">
+                              Showing {TestListingCardData.length} listings
+                          </Typography>
+                      </Grid>
+                      <Grid item className={cx(classes.filterBtnContainer)} xs={6} sm={6} md={6}>
+                          <FilterButton filterGroups={TestFilterGroups}/>
+                      </Grid>
+                  </Grid>
               </Grid>
-              <Grid
-                item
-                className={cx(classes.filterBtnContainer)}
-                xs={6}
-                sm={6}
-                md={6}
-              >
-                <FilterButton
-                  filterGroups={TestFilterGroups}
-                  onApplyFilter={handleApplyFilter}
-                />
+              <Grid item xs={12} sm={12} md={12}>
+                  <Grid container spacing={2}>
+                      {TestListingCardData.map((listing) => (
+                          <Grid item xs={12} sm={12} md={12} id={String(listing.id)}>
+                              <ListingCard id={listing.id} title={listing.title} />
+                          </Grid>
+                      ))}
+                  </Grid>
               </Grid>
-            </Grid>
           </Grid>
-          <Grid item xs={12} sm={12} md={12}>
-            <Grid container spacing={2}>
-              {TestListingCardData.map((listing) => (
-                <Grid item xs={12} sm={12} md={12}>
-                  <ListingCard id={listing.id} title={listing.title} />
-                </Grid>
-              ))}
-            </Grid>
-          </Grid>
-        </Grid>
+        </div>
       </div>
-    </div>
   );
 }
 export default ListingsPage;
