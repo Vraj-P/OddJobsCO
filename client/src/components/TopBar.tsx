@@ -104,6 +104,9 @@ function TopBar() {
                 <Button color="inherit" component={Link} to="/profile" className={cx(classes.button)}>
                     Profile
                 </Button>
+                <Button color="inherit" component={Link} to="/login" className={cx(classes.button)}>
+                    Login
+                </Button>
             </Toolbar>
         </AppBar>
     );
