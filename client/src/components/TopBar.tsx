@@ -6,46 +6,6 @@ import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 // import { useApolloClient } from '@apollo/client';
 
-const Search = styled('div')(({ theme }) => ({
-    color: 'black',
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.common.white,
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto',
-    },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: '20ch',
-            '&:focus': {
-                width: '30ch',
-            },
-        },
-    },
-}));
-
 const useStyles = makeStyles()((theme) => ({
   root: {
     flexGrow: 1,
@@ -61,6 +21,43 @@ const useStyles = makeStyles()((theme) => ({
     [theme.breakpoints.down("xs")]: {
       marginLeft: theme.spacing(1),
       fontSize: "0.75rem",
+    },
+  },
+  search:{
+    color: 'black',
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: theme.palette.common.white,
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto',
+    },
+  },
+  searchIconWrapper: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  styledInputBase: {
+    color: 'inherit',
+    '& .MuiInputBase-input': {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
+        width: '20ch',
+        '&:focus': {
+            width: '30ch',
+        },
+      },
     },
   },
 }));
@@ -87,17 +84,18 @@ function TopBar() {
                 <Typography variant="h6" className={cx(classes.title)}>
                     Odd Jobs Co.
                 </Typography>
-                <Search>
-                    <SearchIconWrapper>
+                <div className={cx(classes.search)}>
+                    <div className={cx(classes.searchIconWrapper)}>
                         <SearchIcon />
-                    </SearchIconWrapper>
-                    <StyledInputBase
+                    </div>
+                    <InputBase
+                        className={cx(classes.styledInputBase)}
                         placeholder="Search for listings"
                         value={searchValue}
                         onChange={handleSearchChange}
                         inputProps={{ 'aria-label': 'search' }}
                     />
-                </Search>
+                </div>
                 <Button disableRipple = {true} color="inherit" component={Link} to="/listings" className={cx(classes.button)}>
                     Listings
                 </Button>
