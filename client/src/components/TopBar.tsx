@@ -99,6 +99,9 @@ function TopBar() {
                 <Button disableRipple = {true} color="inherit" component={Link} to="/listings" className={cx(classes.button)}>
                     Listings
                 </Button>
+                <Button disableRipple = {true} color="inherit" component={Link} to="/create" className={cx(classes.button)}>
+                    Create Listing
+                </Button>
                 <Button disableRipple = {true} color="inherit" component={Link} to="/login" className={cx(classes.button)}>
                     Login
                 </Button>
