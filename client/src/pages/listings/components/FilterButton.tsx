@@ -18,11 +18,10 @@ type FilterState = {
 interface FilterButtonProps {
     filterGroups: FilterGroup[];
     onApplyFilter: (filterState: FilterState) => void;
-    maxHeight?: string;
 }
 
 function FilterButton (props: FilterButtonProps) {
-    const { filterGroups, onApplyFilter, maxHeight } = props;
+    const { filterGroups, onApplyFilter} = props;
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [filterState, setFilterState] = useState<FilterState>({});
 
@@ -65,13 +64,17 @@ function FilterButton (props: FilterButtonProps) {
                 onClose={handleClose}
                 PaperProps={{
                     style: {
-                        maxHeight,
+                        maxHeight: '350px',
                         minWidth: '200px',
                     },
                 }}
             >
                 {filterGroups.map((group) => (
-                    <MenuItem key={group.label}>
+                    <MenuItem
+                        sx={{"&:hover": {backgroundColor: "white" }}}
+                        key={group.label}
+                        disableRipple = {true}
+                    >
                         <FormControl component="fieldset">
                             <FormGroup>
                                 <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>{group.label}</div>

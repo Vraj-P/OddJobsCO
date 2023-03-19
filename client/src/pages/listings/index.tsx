@@ -26,8 +26,8 @@ function ListingsPage() {
 
     return (
         <div>
-            <FilterButton filterGroups={TestFilterGroups} onApplyFilter={handleApplyFilter}/>
             <div className={cx(classes.container)}>
+                <FilterButton filterGroups={TestFilterGroups} onApplyFilter={handleApplyFilter}/>
                 <Grid container spacing={2}>
                     {TestListingCardData.map((listing) => (
                         <Grid item xs={12} sm={12} md={12}>
