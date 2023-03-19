@@ -119,6 +119,7 @@ const LoginForm = () => {
                         </Typography>
                     )}
                     <Button
+                        disableRipple = {true}
                         type="submit"
                         fullWidth
                         variant="contained"

@@ -82,6 +82,7 @@ function Listing() {
             {description}
           </Typography>
           <Button
+            disableRipple = {true}
             className={cx(classes.button)}
             variant="contained"
             color="primary"

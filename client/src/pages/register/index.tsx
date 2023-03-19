@@ -146,6 +146,7 @@ const RegisterForm = () => {
                         </Typography>
                     )}
                     <Button
+                        disableRipple = {true}
                         type="submit"
                         variant="contained"
                         fullWidth

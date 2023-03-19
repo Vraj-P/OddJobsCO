@@ -98,13 +98,13 @@ function TopBar() {
                         inputProps={{ 'aria-label': 'search' }}
                     />
                 </Search>
-                <Button color="inherit" component={Link} to="/listings" className={cx(classes.button)}>
+                <Button disableRipple = {true} color="inherit" component={Link} to="/listings" className={cx(classes.button)}>
                     Listings
                 </Button>
-                <Button color="inherit" component={Link} to="/profile" className={cx(classes.button)}>
+                <Button disableRipple = {true} color="inherit" component={Link} to="/profile" className={cx(classes.button)}>
                     Profile
                 </Button>
-                <Button color="inherit" component={Link} to="/login" className={cx(classes.button)}>
+                <Button disableRipple = {true} color="inherit" component={Link} to="/login" className={cx(classes.button)}>
                     Login
                 </Button>
             </Toolbar>

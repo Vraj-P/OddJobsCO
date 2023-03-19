@@ -56,6 +56,7 @@ const UserProfile = () => {
               </Grid>
               <Grid item>
                 <Button
+                  disableRipple = {true}
                   variant="contained"
                   color="primary"
                   className={cx(classes.button)}
@@ -63,6 +64,7 @@ const UserProfile = () => {
                   Edit Profile
                 </Button>
                 <Button
+                  disableRipple = {true}
                   variant="contained"
                   color="secondary"
                   className={cx(classes.button)}
