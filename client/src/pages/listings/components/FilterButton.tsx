@@ -55,7 +55,7 @@ function FilterButton (props: FilterButtonProps) {
 
     return (
         <>
-            <Button disableRipple = {true} variant="outlined" color="primary" onClick={handleClick}>
+            <Button disableRipple = {true} variant="contained" color="primary" onClick={handleClick}>
                 Filter
             </Button>
             <Menu
