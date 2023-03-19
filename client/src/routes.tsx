@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import ListingsPage from "./pages/listings";
 import ListingPage from "./pages/listing";
 import ProfilePage from "./pages/profile";
+import LoginForm from "./pages/login";
 
 const Routes: React.FC = () => {
   return (
@@ -12,7 +13,8 @@ const Routes: React.FC = () => {
       <Route path="/profile/:id" Component={ProfilePage} />
       <Route path="/listing/:id" Component={ListingPage} />
       <Route path="/listings" Component={ListingsPage} />
-    </AppRoutes>
+      <Route path="/login" Component={LoginForm} />
+=    </AppRoutes>
   );
 };
 
