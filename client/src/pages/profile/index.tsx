@@ -2,7 +2,7 @@ import React from "react";
 import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import ListingCard from "../listings/components/ListingCard";
-import { TestListingData, TestListingCardData } from "../../testingData";
+import { TestUserData, TestListingCardData } from "../../testingData";
 import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles()((theme) => ({
@@ -29,7 +29,7 @@ const UserProfile = () => {
   // we would take this id and pass it in  a get query to get the listing data
   const { id } = useParams();
 
-  const { title, name, phone, email } = TestListingData[Number(id)-1];
+  const { title, name, phone, email } = TestUserData[Number(id)-1];
 
   return (
     <div className={cx(classes.root)}>
@@ -77,7 +77,7 @@ const UserProfile = () => {
         </Grid>
         <Grid container spacing={2}>
           {TestListingCardData.map((listing) => (
-            <Grid item xs={12} sm={12} md={12}>
+            <Grid item xs={12} sm={12} md={12} id={String(listing.id)}>
               <ListingCard id={listing.id} title={listing.title} />
             </Grid>
           ))}

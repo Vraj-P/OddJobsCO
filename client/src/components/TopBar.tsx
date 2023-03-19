@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Button, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { makeStyles } from 'tss-react/mui';
 import { Link } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
+import ProfileButton from "./ProfileButton";
 // import { useApolloClient } from '@apollo/client';
 
 const useStyles = makeStyles()((theme) => ({
@@ -99,12 +99,10 @@ function TopBar() {
                 <Button disableRipple = {true} color="inherit" component={Link} to="/listings" className={cx(classes.button)}>
                     Listings
                 </Button>
-                <Button disableRipple = {true} color="inherit" component={Link} to="/profile" className={cx(classes.button)}>
-                    Profile
-                </Button>
                 <Button disableRipple = {true} color="inherit" component={Link} to="/login" className={cx(classes.button)}>
                     Login
                 </Button>
+                <ProfileButton/>
             </Toolbar>
         </AppBar>
     );

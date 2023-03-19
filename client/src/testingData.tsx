@@ -12,6 +12,14 @@ interface ListingCardData {
     id: number;
 }
 
+interface UserData {
+    title: string;
+    id: number;
+    name: string;
+    phone: string;
+    email: string;
+}
+
 export const TestListingData: ListingData[] = [
     {
         id: 1,
@@ -38,6 +46,36 @@ export const TestListingData: ListingData[] = [
         description: "Lorem ipsum dolor sit amet, mazim mandamus pri id, deserunt persequeris has et, eu scripta vivendum cum. Cu modus suscipiantur est. Ne eos odio dicit iriure, oratio laudem erroribus an vis. Alterum constituam ex has, eu duo detracto patrioque. In mandamus dissentiunt mea, duo ea mutat postea accumsan. Minimum adipiscing nam in, facilis blandit prodesset ea eos.",
     },
 ];
+
+export const TestUserData: UserData[] = [
+    {
+        id: 1,
+        title: 'Listing 1',
+        name: "Name",
+        phone: "+1-xxx-xxx-xxxx",
+        email: "xxxxx@xxx.com",
+    },
+    {
+        id: 2,
+        title: 'Listing 2',
+        name: "Name",
+        phone: "+1-xxx-xxx-xxxx",
+        email: "xxxxx@xxx.com",
+    },
+    {
+        id: 3,
+        title: 'Listing 3',
+        name: "Name",
+        phone: "+1-xxx-xxx-xxxx",
+        email: "xxxxx@xxx.com",
+    },
+];
+
+export const GetUser = (id: number) => {
+    return TestUserData[id];
+}
+
+// export const CurrentUserData: ListingData
 
 export const TestListingCardData: ListingCardData[] = [
     { id: 1, title: 'Listing 1' },
@@ -115,6 +153,8 @@ const TestData = {
     TestFilterGroups,
     TestListingCardData,
     TestListingData,
+    TestUserData,
+    GetUser,
 };
 
 export default TestData;
