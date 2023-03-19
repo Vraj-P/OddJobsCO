@@ -24,16 +24,16 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 const UserProfile = () => {
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
 
   const { title, name, phone, email } = TestListingData[0];
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
+    <div className={cx(classes.root)}>
+      <Paper className={cx(classes.paper)}>
         <Grid container spacing={2}>
           <Grid item>
-            <Avatar className={classes.avatar}>{name[0]}</Avatar>
+            <Avatar className={cx(classes.avatar)}>{name[0]}</Avatar>
           </Grid>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
@@ -55,14 +55,14 @@ const UserProfile = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  className={classes.button}
+                  className={cx(classes.button)}
                 >
                   Edit Profile
                 </Button>
                 <Button
                   variant="contained"
                   color="secondary"
-                  className={classes.button}
+                  className={cx(classes.button)}
                 >
                   Delete Profile
                 </Button>
