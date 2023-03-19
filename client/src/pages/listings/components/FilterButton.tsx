@@ -54,7 +54,7 @@ function FilterButton (props: FilterButtonProps) {
     };
 
     return (
-        <div>
+        <>
             <Button variant="outlined" color="primary" onClick={handleClick}>
                 Filter
             </Button>
@@ -98,7 +98,7 @@ function FilterButton (props: FilterButtonProps) {
                 ))}
                 <MenuItem onClick={handleApplyFilter}>Apply</MenuItem>
             </Menu>
-        </div>
+        </>
     );
 };
 
