@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, Menu, MenuItem} from "@mui/material";
-
-type FilterOption = {
-    label: string;
-    value: string;
-};
-
-type FilterGroup = {
-    label: string;
-    options: FilterOption[];
-};
+import {FilterGroup} from "../../../types";
 
 type FilterState = {
     [key: string]: string[];
