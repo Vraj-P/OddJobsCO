@@ -22,13 +22,6 @@ const useStyles = makeStyles()({
 function ListingsPage() {
     const { classes, cx } = useStyles();
 
-    const [filterState, setFilterState] = useState({});
-
-    const handleApplyFilter = (newFilterState: any) => {
-        setFilterState(newFilterState);
-        console.log(filterState);
-    };
-
     return (
         <div>
             <div className={cx(classes.container)}>
@@ -41,7 +34,7 @@ function ListingsPage() {
                                 </Typography>
                             </Grid>
                             <Grid item className={cx(classes.filterBtnContainer)} xs={6} sm={6} md={6}>
-                                <FilterButton filterGroups={TestFilterGroups} onApplyFilter={handleApplyFilter}/>
+                                <FilterButton filterGroups={TestFilterGroups}/>
                             </Grid>
                         </Grid>
                     </Grid>

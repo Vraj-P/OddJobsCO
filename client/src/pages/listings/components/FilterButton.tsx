@@ -17,11 +17,10 @@ type FilterState = {
 
 interface FilterButtonProps {
     filterGroups: FilterGroup[];
-    onApplyFilter: (filterState: FilterState) => void;
 }
 
 function FilterButton (props: FilterButtonProps) {
-    const { filterGroups, onApplyFilter} = props;
+    const { filterGroups } = props;
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [filterState, setFilterState] = useState<FilterState>({});
 
@@ -30,6 +29,7 @@ function FilterButton (props: FilterButtonProps) {
     };
 
     const handleClose = () => {
+        console.log(filterState);
         setAnchorEl(null);
     };
 
@@ -49,7 +49,6 @@ function FilterButton (props: FilterButtonProps) {
     };
 
     const handleApplyFilter = () => {
-        onApplyFilter(filterState);
         handleClose();
     };
 
