@@ -5,6 +5,7 @@ import ListingsPage from "./pages/listings";
 import ListingPage from "./pages/listing";
 import ProfilePage from "./pages/profile";
 import LoginForm from "./pages/login";
+import RegisterForm from "./pages/register";
 
 const Routes: React.FC = () => {
   return (
@@ -14,7 +15,8 @@ const Routes: React.FC = () => {
       <Route path="/listing/:id" Component={ListingPage} />
       <Route path="/listings" Component={ListingsPage} />
       <Route path="/login" Component={LoginForm} />
-=    </AppRoutes>
+      <Route path="/register" Component={RegisterForm} />
+    </AppRoutes>
   );
 };
 

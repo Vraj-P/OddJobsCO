@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { useNavigate } from 'react-router-dom';
+// import { useMutation } from '@apollo/client';
+// import { useNavigate } from 'react-router-dom';
 import { makeStyles } from "tss-react/mui";
 import {
     Avatar,
     Button,
     CssBaseline,
     TextField,
-    Link,
     Grid,
     Typography,
     Container,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import LockOutlinedIcon from '@mui/icons-material//LockOutlined';
 // import { LOGIN_MUTATION } from '../graphql/mutations';
 
@@ -42,7 +42,7 @@ const LoginForm = () => {
         password: '',
     });
     const [errorMessage, setErrorMessage] = useState('');
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     // const [loginMutation, { loading }] = useMutation(LOGIN_MUTATION, {
     //     onCompleted: () => {
@@ -50,7 +50,7 @@ const LoginForm = () => {
     //             email: '',
     //             password: '',
     //         });
-    //         history.push('/');
+    //         navigate.push('/');
     //     },
     //     onError: (error) => {
     //         setErrorMessage(error.message);
@@ -60,7 +60,7 @@ const LoginForm = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setErrorMessage('');
-        console.log(formData)
+        console.log(formData);
         // loginMutation({ variables: formData });
     };
 
@@ -131,8 +131,7 @@ const LoginForm = () => {
                     <Grid container>
                         <Grid item>
                             <Link
-                                href="/register"
-                                variant="body2"
+                                to="/register"
                             >
                                 {"Don't have an account? Sign Up"}
                             </Link>
