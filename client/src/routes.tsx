@@ -6,6 +6,7 @@ import ListingPage from "./pages/listing";
 import ProfilePage from "./pages/profile";
 import LoginForm from "./pages/login";
 import RegisterForm from "./pages/register";
+import { CreateEditPage } from "./pages/createEditPage";
 
 const Routes: React.FC = () => {
   return (
@@ -16,6 +17,8 @@ const Routes: React.FC = () => {
       <Route path="/listings" Component={ListingsPage} />
       <Route path="/login" Component={LoginForm} />
       <Route path="/register" Component={RegisterForm} />
+      <Route path="/create" Component={() => CreateEditPage(false)} />
+      <Route path="/edit" Component={() => CreateEditPage(true)} />
     </AppRoutes>
   );
 };
