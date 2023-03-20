@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { makeStyles } from "tss-react/mui";
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  Typography,
+  Container,
+} from "@mui/material";
 
 const useStyles = makeStyles()((theme) => ({
   container: {
@@ -25,10 +31,27 @@ const useStyles = makeStyles()((theme) => ({
   formContent: {
     padding: "1rem",
   },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
 export const CreateEditPage = (editFlag: boolean) => {
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
   const [listingData, setListingData] = useState({
     title: "",
     description: "",
@@ -46,35 +69,48 @@ export const CreateEditPage = (editFlag: boolean) => {
   };
 
   return (
-    <div className={classes.container}>
-      <form
-        onSubmit={handleListingSubmit}
-        className={classes.root}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          className={classes.formContent}
-          id="outlined-basic"
-          label="Add a title"
-          variant="outlined"
-          name="title"
-          value={listingData.title}
-          onChange={handleListingChange}
-        />
-        <TextField
-          className={classes.formContent}
-          id="outlined-basic"
-          label="Add a description"
-          variant="outlined"
-          name="description"
-          value={listingData.description}
-          onChange={handleListingChange}
-        />
-        <Button variant="contained" color="primary" type="submit">
-          {editFlag ? "Edit" : "Create"}
-        </Button>
-      </form>
-    </div>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={cx(classes.paper)}>
+        <Typography component="h1" variant="h5">
+          {editFlag ? "Edit Listing" : "Create a New Listing"}
+        </Typography>
+        <form className={cx(classes.form)} onSubmit={handleListingSubmit}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="title"
+            label="Listing Title"
+            name="title"
+            value={listingData.title}
+            onChange={handleListingChange}
+            autoFocus
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="description"
+            label="Listing Description"
+            type="description"
+            id="description"
+            value={listingData.description}
+            onChange={handleListingChange}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={cx(classes.submit)}
+          >
+            {editFlag ? "Edit" : "Create"}
+          </Button>
+        </form>
+      </div>
+    </Container>
   );
 };
