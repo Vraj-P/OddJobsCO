@@ -91,6 +91,9 @@ export const CreateEditPage = (editFlag: boolean) => {
           <TextField
             variant="outlined"
             margin="normal"
+            multiline={true}
+            rows={7}
+            maxRows={7}
             required
             fullWidth
             name="description"
