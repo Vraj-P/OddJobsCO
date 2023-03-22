@@ -52,7 +52,7 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-export const CreateEditPage = (editFlag: boolean) => {
+export const CreateEditListing = (editFlag: boolean) => {
   const { classes, cx } = useStyles();
   const { id } = useParams();
   const [listingData, setListingData] = useState(editFlag && id ? {
@@ -63,10 +63,8 @@ export const CreateEditPage = (editFlag: boolean) => {
     description: "",
   });
 
-
   const handleListingSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("VINAYS TEST");
-    console.log(id);
+    e.preventDefault();
     alert(
       "title: " + listingData.title + " description: " + listingData.description
     );

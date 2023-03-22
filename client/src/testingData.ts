@@ -30,21 +30,18 @@ export const TestListingData: ListingData[] = [
 export const TestUserData: UserData[] = [
     {
         id: 1,
-        title: 'Listing 1',
         name: "Name",
         phone: "+1-xxx-xxx-xxxx",
         email: "xxxxx@xxx.com",
     },
     {
         id: 2,
-        title: 'Listing 2',
         name: "Name",
         phone: "+1-xxx-xxx-xxxx",
         email: "xxxxx@xxx.com",
     },
     {
         id: 3,
-        title: 'Listing 3',
         name: "Name",
         phone: "+1-xxx-xxx-xxxx",
         email: "xxxxx@xxx.com",

@@ -14,7 +14,6 @@ export interface ListingCardData {
 }
 
 export interface UserData {
-    title: string;
     id: number;
     name: string;
     phone: string;

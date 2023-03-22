@@ -25,7 +25,7 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-const UserProfile = () => {
+export default function UserProfile() {
   const { classes, cx } = useStyles();
   const [editListings, setEditListings] = useState(false);
 
@@ -35,7 +35,7 @@ const UserProfile = () => {
 
   const { id } = useParams();
 
-  const { title, name, phone, email } = TestUserData[Number(id) - 1];
+  const { name, phone, email } = TestUserData[Number(id) - 1];
 
   return (
     <div className={cx(classes.root)}>
@@ -49,9 +49,6 @@ const UserProfile = () => {
               <Grid item xs>
                 <Typography gutterBottom variant="h5">
                   {name}
-                </Typography>
-                <Typography variant="body2" gutterBottom>
-                  {title}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   {email}
@@ -77,6 +74,8 @@ const UserProfile = () => {
                 disableRipple={true}
                 variant="contained"
                 color="primary"
+                component={Link}
+                to={`/edit-profile/${id}`}
                 className={cx(classes.button_profile)}
             >
               Edit Profile
@@ -110,6 +109,4 @@ const UserProfile = () => {
       </Paper>
     </div>
   );
-};
-
-export default UserProfile;
+}
