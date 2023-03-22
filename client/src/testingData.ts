@@ -56,9 +56,9 @@ export const GetUser = (id: number) => {
 }
 
 export const TestListingCardData: ListingCardData[] = [
-    { id: 1, title: 'Listing 1' },
-    { id: 2, title: 'Listing 2' },
-    { id: 3, title: 'Listing 3' },
+    { id: 1, title: 'Listing 1', edit: false },
+    { id: 2, title: 'Listing 2', edit: false },
+    { id: 3, title: 'Listing 3', edit: false },
 ];
 
 export const TestFilterGroups: FilterGroup[] = [

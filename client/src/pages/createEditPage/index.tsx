@@ -7,6 +7,8 @@ import {
   Typography,
   Container,
 } from "@mui/material";
+import {useParams} from "react-router-dom";
+import {TestListingData} from "../../testingData";
 
 const useStyles = makeStyles()((theme) => ({
   container: {
@@ -52,13 +54,19 @@ const useStyles = makeStyles()((theme) => ({
 
 export const CreateEditPage = (editFlag: boolean) => {
   const { classes, cx } = useStyles();
-  const [listingData, setListingData] = useState({
+  const { id } = useParams();
+  const [listingData, setListingData] = useState(editFlag && id ? {
+    title: TestListingData[Number(id)-1].title,
+    description: TestListingData[Number(id)-1].description,
+  } : {
     title: "",
     description: "",
   });
 
+
   const handleListingSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    console.log("VINAYS TEST");
+    console.log(id);
     alert(
       "title: " + listingData.title + " description: " + listingData.description
     );

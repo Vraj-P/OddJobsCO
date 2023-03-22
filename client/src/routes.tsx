@@ -18,7 +18,7 @@ const Routes: React.FC = () => {
       <Route path="/login" Component={LoginForm} />
       <Route path="/register" Component={RegisterForm} />
       <Route path="/create" Component={() => CreateEditPage(false)} />
-      <Route path="/edit" Component={() => CreateEditPage(true)} />
+      <Route path="/edit/:id" Component={() => CreateEditPage(true)} />
     </AppRoutes>
   );
 };

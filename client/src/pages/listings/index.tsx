@@ -48,7 +48,7 @@ function ListingsPage() {
             <Grid container spacing={2}>
               {TestListingCardData.map((listing) => (
                 <Grid item xs={12} sm={12} md={12} id={String(listing.id)}>
-                  <ListingCard id={listing.id} title={listing.title} />
+                  <ListingCard id={listing.id} title={listing.title} edit={false}/>
                 </Grid>
               ))}
             </Grid>

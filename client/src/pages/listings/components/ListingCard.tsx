@@ -1,8 +1,9 @@
 import React from 'react';
 import { makeStyles } from 'tss-react/mui';
-import { Card, CardContent, Typography, Button } from '@mui/material';
+import {Card, CardContent, Typography, Button, IconButton, Grid} from '@mui/material';
 import { Link } from 'react-router-dom';
 import {ListingCardData} from "../../../types";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const useStyles = makeStyles()((theme) => ({
     card: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles()((theme) => ({
 
 function ListingCard(props : ListingCardData) {
     const { classes, cx } = useStyles();
-    const { title, id } = props;
+    const { title, id, edit } = props;
     return (
         <Card className={cx(classes.card)}>
             <CardContent className={cx(classes.content)}>
@@ -33,16 +34,42 @@ function ListingCard(props : ListingCardData) {
                     {title}
                 </Typography>
             </CardContent>
-            <Button
-                disableRipple = {true}
-                className={cx(classes.detailsButton)}
-                variant="contained"
-                color="primary"
-                component={Link}
-                to={`/listing/${id}`}
-            >
-                Details
-            </Button>
+            {edit ? (
+                <>
+                    <Grid container justifyContent={"flex-end"}>
+                        <IconButton
+                            color="primary"
+                            component="label"
+                            disableRipple = {true}
+                        >
+                            <DeleteIcon/>
+                        </IconButton>
+                        <Button
+                            disableRipple={true}
+                            className={cx(classes.detailsButton)}
+                            variant="contained"
+                            color="primary"
+                            component={Link}
+                            to={`/edit/${id}`}
+                        >
+                            Edit
+                        </Button>
+                    </Grid>
+
+                </>
+            ) : (
+                <Button
+                    disableRipple = {true}
+                    className={cx(classes.detailsButton)}
+                    variant="contained"
+                    color="primary"
+                    component={Link}
+                    to={`/listing/${id}`}
+                >
+                    Details
+                </Button>
+            )}
+
         </Card>
     );
 }
