@@ -7,6 +7,8 @@ import {
   Typography,
   Container,
 } from "@mui/material";
+import {useParams} from "react-router-dom";
+import {TestListingData} from "../../testingData";
 
 const useStyles = makeStyles()((theme) => ({
   container: {
@@ -50,9 +52,13 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-export const CreateEditPage = (editFlag: boolean) => {
+export const CreateEditListing = (editFlag: boolean) => {
   const { classes, cx } = useStyles();
-  const [listingData, setListingData] = useState({
+  const { id } = useParams();
+  const [listingData, setListingData] = useState(editFlag && id ? {
+    title: TestListingData[Number(id)-1].title,
+    description: TestListingData[Number(id)-1].description,
+  } : {
     title: "",
     description: "",
   });
@@ -91,6 +97,9 @@ export const CreateEditPage = (editFlag: boolean) => {
           <TextField
             variant="outlined"
             margin="normal"
+            multiline={true}
+            rows={7}
+            maxRows={7}
             required
             fullWidth
             name="description"

@@ -10,10 +10,10 @@ export interface ListingData {
 export interface ListingCardData {
     title: string;
     id: number;
+    edit: Boolean;
 }
 
 export interface UserData {
-    title: string;
     id: number;
     name: string;
     phone: string;

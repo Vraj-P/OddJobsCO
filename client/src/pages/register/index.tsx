@@ -42,6 +42,7 @@ const RegisterForm = () => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
+        phoneNumber: "",
         password: "",
         confirmPassword: "",
     });
@@ -112,6 +113,19 @@ const RegisterForm = () => {
                         fullWidth
                         name="email"
                         value={formData.email}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        id="phoneNumber"
+                        autoComplete="tel"
+                        autoFocus
+                        label="Phone Number"
+                        variant="outlined"
+                        fullWidth
+                        name="phoneNumber"
+                        value={formData.phoneNumber}
                         onChange={handleChange}
                     />
                     <TextField

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import ListingCard from "../listings/components/ListingCard";
@@ -23,21 +23,19 @@ const useStyles = makeStyles()((theme) => ({
   button_profile: {
     margin: theme.spacing(1),
   },
-  button_create: {
-    margin: theme.spacing(1),
-    position: "fixed",
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-    borderRadius: 100,
-  },
 }));
 
-const UserProfile = () => {
+export default function UserProfile() {
   const { classes, cx } = useStyles();
-  // we would take this id and pass it in  a get query to get the listing data
+  const [editListings, setEditListings] = useState(false);
+
+  const handleSetEditListings = () => {
+    setEditListings(!editListings);
+  };
+
   const { id } = useParams();
 
-  const { title, name, phone, email } = TestUserData[Number(id) - 1];
+  const { name, phone, email } = TestUserData[Number(id) - 1];
 
   return (
     <div className={cx(classes.root)}>
@@ -52,9 +50,6 @@ const UserProfile = () => {
                 <Typography gutterBottom variant="h5">
                   {name}
                 </Typography>
-                <Typography variant="body2" gutterBottom>
-                  {title}
-                </Typography>
                 <Typography variant="body2" color="textSecondary">
                   {email}
                 </Typography>
@@ -62,46 +57,56 @@ const UserProfile = () => {
                   {phone}
                 </Typography>
               </Grid>
-              <Grid item>
-                <Button
-                  disableRipple={true}
-                  variant="contained"
-                  color="primary"
-                  className={cx(classes.button_profile)}
-                >
-                  Edit Profile
-                </Button>
-                <Button
-                  disableRipple={true}
-                  variant="contained"
-                  color="secondary"
-                  className={cx(classes.button_profile)}
-                >
-                  Delete Profile
-                </Button>
-              </Grid>
             </Grid>
+          </Grid>
+          <Grid item>
+            <Button
+                disableRipple = {true}
+                variant="contained"
+                color="primary"
+                component={Link}
+                to="/create"
+                className={cx(classes.button_profile)}
+            >
+              Create Listing
+            </Button>
+            <Button
+                disableRipple={true}
+                variant="contained"
+                color="primary"
+                component={Link}
+                to={`/edit-profile/${id}`}
+                className={cx(classes.button_profile)}
+            >
+              Edit Profile
+            </Button>
+            <Button
+                disableRipple={true}
+                variant="contained"
+                color="primary"
+                className={cx(classes.button_profile)}
+            >
+              Delete Profile
+            </Button>
+            <Button
+                disableRipple={true}
+                variant="contained"
+                color="primary"
+                onClick={handleSetEditListings}
+                className={cx(classes.button_profile)}
+            >
+              Edit Listings
+            </Button>
           </Grid>
         </Grid>
         <Grid container spacing={2}>
           {TestListingCardData.map((listing) => (
             <Grid item xs={12} sm={12} md={12} id={String(listing.id)}>
-              <ListingCard id={listing.id} title={listing.title} />
+              <ListingCard id={listing.id} title={listing.title} edit={editListings} />
             </Grid>
           ))}
         </Grid>
       </Paper>
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.button_create}
-        component={Link}
-        to={"/create/"}
-      >
-        Create
-      </Button>
     </div>
   );
-};
-
-export default UserProfile;
+}

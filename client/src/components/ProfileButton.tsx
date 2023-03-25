@@ -17,7 +17,7 @@ const useStyles = makeStyles()((theme) => ({
 function ProfileButton() {
     const { classes, cx } = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const id = GetUser(1).id;
+    const id = GetUser(0).id;
 
     const handleMenuOpen = (event: any) => {
         setAnchorEl(event.currentTarget);

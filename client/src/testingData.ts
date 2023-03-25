@@ -30,21 +30,18 @@ export const TestListingData: ListingData[] = [
 export const TestUserData: UserData[] = [
     {
         id: 1,
-        title: 'Listing 1',
         name: "Name",
         phone: "+1-xxx-xxx-xxxx",
         email: "xxxxx@xxx.com",
     },
     {
         id: 2,
-        title: 'Listing 2',
         name: "Name",
         phone: "+1-xxx-xxx-xxxx",
         email: "xxxxx@xxx.com",
     },
     {
         id: 3,
-        title: 'Listing 3',
         name: "Name",
         phone: "+1-xxx-xxx-xxxx",
         email: "xxxxx@xxx.com",
@@ -56,9 +53,9 @@ export const GetUser = (id: number) => {
 }
 
 export const TestListingCardData: ListingCardData[] = [
-    { id: 1, title: 'Listing 1' },
-    { id: 2, title: 'Listing 2' },
-    { id: 3, title: 'Listing 3' },
+    { id: 1, title: 'Listing 1', edit: false },
+    { id: 2, title: 'Listing 2', edit: false },
+    { id: 3, title: 'Listing 3', edit: false },
 ];
 
 export const TestFilterGroups: FilterGroup[] = [
