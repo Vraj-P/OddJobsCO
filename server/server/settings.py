@@ -127,10 +127,10 @@ DATABASES = {
     'default': {  
         'ENGINE': 'django.db.backends.mysql',  
         'NAME': 'OddJobsCo',  
-        'USER': 'root',  
-        'PASSWORD': 'Vraj8725',  
-        'HOST': '127.0.0.1',  
-        'PORT': '3306',  
+        'USER': '<username>',  
+        'PASSWORD': '<password>',  
+        'HOST': '<host>',  
+        'PORT': '<port>',  
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
         }  
