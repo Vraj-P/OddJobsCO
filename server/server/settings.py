@@ -125,4 +125,22 @@ DATABASES = {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
         }  
     }  
-}  
+}
+
+AUTH_USER_MODEL = 'OddJobsCo.User'
+
+GRAPHENE = {
+    'SCHEMA': 'myapp.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
+}
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+JWT_AUTHENTICATION_HEADER_NAME = 'HTTP_AUTHORIZATION'
+
+JWT_SECRET_KEY = 'mysecretkey'
