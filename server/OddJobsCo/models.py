@@ -13,6 +13,25 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
+    
+# create a listings manager class with a create_listing method that saves listings to a database
+class ListingManager(models.Manager):
+    use_in_migrations = True
+
+    def create_listing(self, title, description, completed, price, user_id):
+        if not title:
+            raise ValueError('The Title field must be set')
+        if not description:
+            raise ValueError('The Description field must be set')
+        if not price:
+            raise ValueError('The Price field must be set')
+        if not user_id:
+            raise ValueError('The user_id field must be set')
+        
+        listing = self.model(title=title, description=description, completed=completed, price=price, user_id=user_id)
+        listing.save(using=self._db)
+
+        return listing
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -51,6 +70,7 @@ class Listing(models.Model):
     completed = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
+    objects = ListingManager()
 
 class Filters(models.Model):
     id = models.AutoField(primary_key=True)
