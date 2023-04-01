@@ -16,6 +16,7 @@ class ListingType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     users = graphene.List(UserType)
+    user = graphene.Field(UserType, id=graphene.Int(required=True))
     listings = graphene.List(ListingType)
 
     # so when users is requested, the resolve function below gets the data from the db and sets it to
@@ -23,10 +24,52 @@ class Query(graphene.ObjectType):
     @login_required
     def resolve_users(self, info):
         return User.objects.all()
+    
+    @login_required
+    def resolve_user(self, info, id):
+        try:
+            return User.objects.get(id=id)
+        except User.DoesNotExist:
+            return None
 
     @login_required
     def resolve_listings(self, info):
         return Listing.objects.all()
 
 
-schema = graphene.Schema(query=Query)
+class CreateListing(graphene.Mutation):
+    id = graphene.Int()
+    title = graphene.String()
+    description = graphene.String()
+    completed = graphene.Boolean()
+    price = graphene.Float()
+    listings = graphene.List(ListingType)
+
+    class Arguments:
+        title = graphene.String()
+        description = graphene.String()
+        price = graphene.Float()
+        user_id = graphene.ID()
+
+    @login_required
+    def mutate(self, info, title, description, price, user_id):
+        user = User.objects.get(id=user_id)
+        listing = Listing(title=title, description=description, completed=False, price=price, user=user)
+        listing.save()
+
+        return CreateListing(
+            id=listing.id,
+            title=listing.title,
+            description=listing.description,
+            completed=listing.completed,
+            price=listing.price
+        )
+    
+
+class Mutation(graphene.ObjectType):
+    create_listing = CreateListing.Field()
+
+
+
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
