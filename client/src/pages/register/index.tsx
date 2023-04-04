@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-// import { useMutation } from "@apollo/client";
-// import { useNavigate } from 'react-router-dom';
+import React, {useState} from "react";
+import { useNavigate } from 'react-router-dom';
 import { makeStyles } from "tss-react/mui";
 import {
     TextField,
@@ -13,7 +12,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-// import { REGISTER_USER } from "../graphql/mutations";
+import axios from "axios";
+import {API_BASE_URL, REGISTER_ENDPOINT} from "../../config/links";
 
 const useStyles = makeStyles()((theme) => ({
     paper: {
@@ -37,7 +37,7 @@ const useStyles = makeStyles()((theme) => ({
 
 const RegisterForm = () => {
     const { classes, cx } = useStyles();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const [formData, setFormData] = useState({
         name: "",
@@ -46,15 +46,6 @@ const RegisterForm = () => {
         password: "",
         confirmPassword: "",
     });
-
-    // const [registerUser, { error }] = useMutation(REGISTER_USER, {
-    //     onCompleted: () => {
-    //         navigate("/login");
-    //     },
-    //     onError: (error) => {
-    //         setErrorMessage(error.message);
-    //     },
-    // });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>,) => {
         setFormData({
@@ -67,13 +58,29 @@ const RegisterForm = () => {
         event.preventDefault();
         setErrorMessage('');
         console.log(formData);
-        // registerUser({
-        //     variables: {
-        //         name: formData.name,
-        //         email: formData.email,
-        //         password: formData.password,
-        //     },
-        // });
+        if (formData.password !== formData.confirmPassword) {
+            setErrorMessage("Passwords do not match. Please try again.");
+            setFormData(
+                {
+                    name: "",
+                    email: "",
+                    phoneNumber: "",
+                    password: "",
+                    confirmPassword: "",
+                }
+            )
+        } else {
+            const {email, password} = formData;
+            axios.post(`${API_BASE_URL}${REGISTER_ENDPOINT}`, { email, password }, {})
+              .then(response => {
+                const jwtToken = response.data.jwtToken;
+                sessionStorage.setItem('jwtToken', jwtToken);
+                navigate('/register');
+              })
+              .catch(error => {
+                setErrorMessage(error.message);
+              });
+        }
     };
 
     return (
