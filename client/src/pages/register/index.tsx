@@ -43,7 +43,7 @@ const RegisterForm = () => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        phoneNumber: "",
+        phone_number: "",
         password: "",
         confirmPassword: "",
     });
@@ -65,19 +65,13 @@ const RegisterForm = () => {
                 {
                     name: "",
                     email: "",
-                    phoneNumber: "",
+                    phone_number: "",
                     password: "",
                     confirmPassword: "",
                 }
             )
         } else {
-            const {name, email, phoneNumber, password} = formData;
-            const payloadData = new FormData();
-            payloadData.append('name', name);
-            payloadData.append('email', email);
-            payloadData.append('password', password);
-            payloadData.append('phone_number', phoneNumber);
-            axios.post(`${API_BASE_URL}${REGISTER_ENDPOINT}`, payloadData, {
+            axios.post(`${API_BASE_URL}${REGISTER_ENDPOINT}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }
@@ -141,8 +135,8 @@ const RegisterForm = () => {
                         label="Phone Number"
                         variant="outlined"
                         fullWidth
-                        name="phoneNumber"
-                        value={formData.phoneNumber}
+                        name="phone_number"
+                        value={formData.phone_number}
                         onChange={handleChange}
                     />
                     <TextField

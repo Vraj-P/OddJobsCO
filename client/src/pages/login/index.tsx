@@ -48,12 +48,7 @@ const LoginForm = () => {
     e.preventDefault();
     setErrorMessage("");
     console.log(formData);
-
-    const {email, password} = formData;
-    const payloadData = new FormData();
-    payloadData.append('email', email);
-    payloadData.append('password', password);
-    axios.post(`${API_BASE_URL}${LOGIN_ENDPOINT}`, payloadData, {
+    axios.post(`${API_BASE_URL}${LOGIN_ENDPOINT}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       }
