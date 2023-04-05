@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { makeStyles } from "tss-react/mui";
 import {
@@ -12,8 +13,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import axios from "axios";
 import {API_BASE_URL, REGISTER_ENDPOINT} from "../../config/links";
+
 
 const useStyles = makeStyles()((theme) => ({
     paper: {
@@ -70,12 +71,21 @@ const RegisterForm = () => {
                 }
             )
         } else {
-            const {email, password} = formData;
-            axios.post(`${API_BASE_URL}${REGISTER_ENDPOINT}`, { email, password }, {})
+            const {name, email, phoneNumber, password} = formData;
+            const payloadData = new FormData();
+            payloadData.append('name', name);
+            payloadData.append('email', email);
+            payloadData.append('password', password);
+            payloadData.append('phone_number', phoneNumber);
+            axios.post(`${API_BASE_URL}${REGISTER_ENDPOINT}`, payloadData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            })
               .then(response => {
                 const jwtToken = response.data.jwtToken;
                 sessionStorage.setItem('jwtToken', jwtToken);
-                navigate('/register');
+                navigate('/login');
               })
               .catch(error => {
                 setErrorMessage(error.message);

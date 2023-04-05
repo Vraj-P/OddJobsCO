@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-// import { useMutation } from '@apollo/client';
-// import { useNavigate } from 'react-router-dom';
+import React, {useState} from "react";
+import { useNavigate } from 'react-router-dom';
 import { makeStyles } from "tss-react/mui";
 import {
   Avatar,
@@ -13,7 +12,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material//LockOutlined";
-// import { LOGIN_MUTATION } from '../graphql/mutations';
+import axios from "axios";
+import {API_BASE_URL, LOGIN_ENDPOINT} from "../../config/links";
 
 const useStyles = makeStyles()((theme) => ({
   paper: {
@@ -37,31 +37,35 @@ const useStyles = makeStyles()((theme) => ({
 
 const LoginForm = () => {
   const { classes, cx } = useStyles();
+  const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [errorMessage, setErrorMessage] = useState("");
-  // const navigate = useNavigate();
-
-  // const [loginMutation, { loading }] = useMutation(LOGIN_MUTATION, {
-  //     onCompleted: () => {
-  //         setFormData({
-  //             email: '',
-  //             password: '',
-  //         });
-  //         navigate.push('/');
-  //     },
-  //     onError: (error) => {
-  //         setErrorMessage(error.message);
-  //     },
-  // });
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage("");
     console.log(formData);
-    // loginMutation({ variables: formData });
+
+    const {email, password} = formData;
+    const payloadData = new FormData();
+    payloadData.append('email', email);
+    payloadData.append('password', password);
+    axios.post(`${API_BASE_URL}${LOGIN_ENDPOINT}`, payloadData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      }
+    })
+      .then(response => {
+        const jwtToken = response.data.jwtToken;
+        sessionStorage.setItem('jwtToken', jwtToken);
+        navigate('/');
+      })
+      .catch(error => {
+        setErrorMessage(error.message);
+      });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
