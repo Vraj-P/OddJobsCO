@@ -1,5 +1,4 @@
 import graphene
-from graphene_django import DjangoObjectType
 from ..models import User, Listing
 from ..types.listingType import ListingType
 from graphql_jwt.decorators import login_required

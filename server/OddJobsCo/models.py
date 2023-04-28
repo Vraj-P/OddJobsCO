@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
+
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError('The Email field must be set')
@@ -13,6 +14,7 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.AutoField(primary_key=True)
@@ -49,6 +51,7 @@ class Listing(models.Model):
     description = models.TextField()
     completed = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+
 
 class Filters(models.Model):
     id = models.AutoField(primary_key=True)
