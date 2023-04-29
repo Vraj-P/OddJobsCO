@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material//LockOutlined";
-import axios from "axios";
-import {API_BASE_URL, LOGIN_ENDPOINT} from "../../config/links";
+import {useMutation} from "@apollo/client";
+import {LoginUserDocument, LoginUserMutation, LoginUserMutationVariables} from "../../generated/graphql";
 
 const useStyles = makeStyles()((theme) => ({
   paper: {
@@ -44,24 +44,24 @@ const LoginForm = () => {
   });
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage("");
     console.log(formData);
-    axios.post(`${API_BASE_URL}${LOGIN_ENDPOINT}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      }
-    })
-      .then(response => {
-        const jwtToken = response.data.jwtToken;
-        sessionStorage.setItem('jwtToken', jwtToken);
-        navigate('/');
-      })
-      .catch(error => {
-        setErrorMessage(error.message);
-      });
+    await login({variables: formData});
   };
+
+  const [login, { loading }] = useMutation<LoginUserMutation ,LoginUserMutationVariables>(LoginUserDocument, {
+    onCompleted({loginUser}) {
+      if (loginUser && loginUser.token){
+        localStorage.setItem('token', loginUser.token);
+        navigate('/');
+      }
+    },
+    onError(error) {
+      setErrorMessage(error.message);
+    }
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -116,7 +116,7 @@ const LoginForm = () => {
             variant="contained"
             color="primary"
             className={cx(classes.submit)}
-            // disabled={loading}
+            disabled={loading}
           >
             Sign In
           </Button>
