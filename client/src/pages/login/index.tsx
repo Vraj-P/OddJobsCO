@@ -111,6 +111,7 @@ const LoginForm = () => {
             <Typography color="error">{errorMessage}</Typography>
           )}
           <Button
+            disableRipple = {true}
             type="submit"
             fullWidth
             variant="contained"

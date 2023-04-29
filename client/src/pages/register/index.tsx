@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { makeStyles } from "tss-react/mui";
 import {
@@ -13,7 +12,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import {API_BASE_URL, REGISTER_ENDPOINT} from "../../config/links";
+import {useMutation} from "@apollo/client";
+import {RegisterUserDocument, RegisterUserMutation, RegisterUserMutationVariables} from "../../generated/graphql";
 
 
 const useStyles = makeStyles()((theme) => ({
@@ -43,7 +43,7 @@ const RegisterForm = () => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        phone_number: "",
+        phoneNumber: "",
         password: "",
         confirmPassword: "",
     });
@@ -55,7 +55,7 @@ const RegisterForm = () => {
         });
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setErrorMessage('');
         console.log(formData);
@@ -65,27 +65,25 @@ const RegisterForm = () => {
                 {
                     name: "",
                     email: "",
-                    phone_number: "",
+                    phoneNumber: "",
                     password: "",
                     confirmPassword: "",
                 }
             )
         } else {
-            axios.post(`${API_BASE_URL}${REGISTER_ENDPOINT}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                }
-            })
-              .then(response => {
-                const jwtToken = response.data.jwtToken;
-                sessionStorage.setItem('jwtToken', jwtToken);
-                navigate('/login');
-              })
-              .catch(error => {
-                setErrorMessage(error.message);
-              });
+
+            await register({variables: formData})
         }
     };
+
+    const [register, {loading}] = useMutation<RegisterUserMutation, RegisterUserMutationVariables>(RegisterUserDocument, {
+        onCompleted() {
+            navigate('/login');
+        },
+        onError(error) {
+          setErrorMessage(error.message);
+        }
+    });
 
     return (
         <Container component="main" maxWidth="xs">
@@ -135,8 +133,8 @@ const RegisterForm = () => {
                         label="Phone Number"
                         variant="outlined"
                         fullWidth
-                        name="phone_number"
-                        value={formData.phone_number}
+                        name="phoneNumber"
+                        value={formData.phoneNumber}
                         onChange={handleChange}
                     />
                     <TextField
@@ -177,6 +175,7 @@ const RegisterForm = () => {
                         fullWidth
                         color={"primary"}
                         className={cx(classes.submit)}
+                        disabled={loading}
                     >
                         Register
                     </Button>
