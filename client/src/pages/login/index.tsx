@@ -57,6 +57,7 @@ const LoginForm = () => {
     onCompleted({loginUser}) {
       if (loginUser && loginUser.token){
         localStorage.setItem('token', loginUser.token);
+
         client.clearStore().then(() => {
           isUserLoggedIn(true);
           navigate('/');
