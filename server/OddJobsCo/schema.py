@@ -12,6 +12,7 @@ class Query(graphene.ObjectType):
     user = graphene.Field(UserType, id=graphene.Int(required=True))
     listings = graphene.List(ListingType)
     listing = graphene.Field(ListingType, id=graphene.Int(required=True))
+    listings_by_title = graphene.List(ListingType, title=graphene.String())
     user_listings = graphene.List(
         ListingType, user_id=graphene.Int(required=True))
 
@@ -36,6 +37,13 @@ class Query(graphene.ObjectType):
     def resolve_listing(self, info, id):
         try:
             return Listing.objects.get(id=id)
+        except Listing.DoesNotExist:
+            return None
+
+    @login_required
+    def resolve_listings_by_title(self, info, title):
+        try:
+            return Listing.objects.filter(title=title)
         except Listing.DoesNotExist:
             return None
 
