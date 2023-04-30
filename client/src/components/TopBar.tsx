@@ -4,7 +4,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { makeStyles } from 'tss-react/mui';
 import { Link } from 'react-router-dom';
 import ProfileButton from "./ProfileButton";
-// import { useApolloClient } from '@apollo/client';
+import {useReactiveVar} from "@apollo/client";
+import {isUserLoggedIn} from "../cachedVariables";
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -65,8 +66,7 @@ const useStyles = makeStyles()((theme) => ({
 function TopBar() {
     const { classes, cx } = useStyles();
     const [searchValue, setSearchValue] = React.useState('');
-
-    // const client = useApolloClient();
+    const isLoggedIn = useReactiveVar(isUserLoggedIn);
 
     const handleSearchChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         // const { data } = await client.query({
@@ -99,12 +99,15 @@ function TopBar() {
                 <Button disableRipple = {true} color="inherit" component={Link} to="/listings" className={cx(classes.button)}>
                     Listings
                 </Button>
-                <Button disableRipple = {true} color="inherit" component={Link} to="/create" className={cx(classes.button)}>
-                    Create Listing
-                </Button>
-                <Button disableRipple = {true} color="inherit" component={Link} to="/login" className={cx(classes.button)}>
-                    Login
-                </Button>
+                {isLoggedIn ? (
+                    <Button disableRipple = {true} color="inherit" component={Link} to="/create" className={cx(classes.button)}>
+                        Create Listing
+                    </Button>
+                ) : (
+                    <Button disableRipple = {true} color="inherit" component={Link} to="/login" className={cx(classes.button)}>
+                        Login
+                    </Button>
+                )}
                 <ProfileButton/>
             </Toolbar>
         </AppBar>

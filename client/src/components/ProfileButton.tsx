@@ -7,6 +7,9 @@ import {
 import { Link } from 'react-router-dom';
 import {IconButton, Menu, MenuItem, ListItemIcon, ListItemText} from '@mui/material';
 import { GetUser } from "../testingData";
+import {isUserLoggedIn} from "../cachedVariables";
+import {client} from "../client";
+import {useReactiveVar} from "@apollo/client";
 
 const useStyles = makeStyles()((theme) => ({
     iconButton: {
@@ -18,6 +21,7 @@ function ProfileButton() {
     const { classes, cx } = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const id = GetUser(0).id;
+    const isLoggedIn = useReactiveVar(isUserLoggedIn);
 
     const handleMenuOpen = (event: any) => {
         setAnchorEl(event.currentTarget);
@@ -37,7 +41,10 @@ function ProfileButton() {
     };
 
     const logout = () => {
-        console.log('logged out');
+        client.clearStore().then(() => {
+            localStorage.removeItem('token');
+            isUserLoggedIn(false);
+        });
     }
 
     return (
@@ -61,12 +68,14 @@ function ProfileButton() {
                     </ListItemIcon>
                     <ListItemText primary="Profile" />
                 </MenuItem>
-                <MenuItem onClick={handleLogoutClick}>
-                    <ListItemIcon>
-                        <ExitToAppIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Logout" />
-                </MenuItem>
+                {isLoggedIn &&
+                    <MenuItem onClick={handleLogoutClick}>
+                        <ListItemIcon>
+                            <ExitToAppIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Logout" />
+                    </MenuItem>
+                }
             </Menu>
         </>
     );

@@ -14,6 +14,8 @@ import { Link } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material//LockOutlined";
 import {useMutation} from "@apollo/client";
 import {LoginUserDocument, LoginUserMutation, LoginUserMutationVariables} from "../../generated/graphql";
+import {isUserLoggedIn} from "../../cachedVariables";
+import {client} from "../../client";
 
 const useStyles = makeStyles()((theme) => ({
   paper: {
@@ -55,7 +57,10 @@ const LoginForm = () => {
     onCompleted({loginUser}) {
       if (loginUser && loginUser.token){
         localStorage.setItem('token', loginUser.token);
-        navigate('/');
+        client.clearStore().then(() => {
+          isUserLoggedIn(true);
+          navigate('/');
+        });
       }
     },
     onError(error) {
