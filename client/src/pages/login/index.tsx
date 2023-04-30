@@ -16,7 +16,6 @@ import {useMutation} from "@apollo/client";
 import {LoginUserDocument, LoginUserMutation, LoginUserMutationVariables} from "../../generated/graphql";
 import {isUserLoggedIn} from "../../cachedVariables";
 import {client} from "../../client";
-import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles()((theme) => ({
   paper: {
@@ -58,8 +57,6 @@ const LoginForm = () => {
     onCompleted({loginUser}) {
       if (loginUser && loginUser.token){
         localStorage.setItem('token', loginUser.token);
-        console.log(jwtDecode(loginUser.token));
-
         client.clearStore().then(() => {
           isUserLoggedIn(true);
           navigate('/');
