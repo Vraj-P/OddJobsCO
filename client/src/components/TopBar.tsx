@@ -5,7 +5,7 @@ import { makeStyles } from 'tss-react/mui';
 import { Link } from 'react-router-dom';
 import ProfileButton from "./ProfileButton";
 import {useReactiveVar} from "@apollo/client";
-import {isUserLoggedIn} from "../cachedVariables";
+import {loggedInUserEmail} from "../cachedVariables";
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -66,7 +66,7 @@ const useStyles = makeStyles()((theme) => ({
 function TopBar() {
     const { classes, cx } = useStyles();
     const [searchValue, setSearchValue] = React.useState('');
-    const isLoggedIn = useReactiveVar(isUserLoggedIn);
+    const isLoggedIn = useReactiveVar(loggedInUserEmail);
 
     const handleSearchChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         // const { data } = await client.query({

@@ -103,6 +103,7 @@ export type Query = {
   __typename?: 'Query';
   listing?: Maybe<ListingType>;
   listings?: Maybe<Array<Maybe<ListingType>>>;
+  listingsByTitle?: Maybe<Array<Maybe<ListingType>>>;
   user?: Maybe<UserType>;
   userListings?: Maybe<Array<Maybe<ListingType>>>;
   users?: Maybe<Array<Maybe<UserType>>>;
@@ -111,6 +112,11 @@ export type Query = {
 
 export type QueryListingArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryListingsByTitleArgs = {
+  title?: InputMaybe<Scalars['String']>;
 };
 
 

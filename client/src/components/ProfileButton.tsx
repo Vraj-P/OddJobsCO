@@ -7,7 +7,7 @@ import {
 import { Link } from 'react-router-dom';
 import {IconButton, Menu, MenuItem, ListItemIcon, ListItemText} from '@mui/material';
 import { GetUser } from "../testingData";
-import {isUserLoggedIn} from "../cachedVariables";
+import {loggedInUserEmail} from "../cachedVariables";
 import {client} from "../client";
 import {useReactiveVar} from "@apollo/client";
 
@@ -21,7 +21,7 @@ function ProfileButton() {
     const { classes, cx } = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const id = GetUser(0).id;
-    const isLoggedIn = useReactiveVar(isUserLoggedIn);
+    const isLoggedIn = useReactiveVar(loggedInUserEmail);
 
     const handleMenuOpen = (event: any) => {
         setAnchorEl(event.currentTarget);
@@ -43,7 +43,7 @@ function ProfileButton() {
     const logout = () => {
         client.clearStore().then(() => {
             localStorage.removeItem('token');
-            isUserLoggedIn(false);
+            loggedInUserEmail('');
         });
     }
 
