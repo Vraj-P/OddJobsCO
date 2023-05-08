@@ -54,7 +54,7 @@ const LoginForm = () => {
     await login({variables: formData});
   };
 
-  const [login, { loading }] = useMutation<LoginUserMutation ,LoginUserMutationVariables>(LoginUserDocument, {
+  const [login, { loading }] = useMutation<LoginUserMutation, LoginUserMutationVariables>(LoginUserDocument, {
     onCompleted({loginUser}) {
       if (loginUser && loginUser.token){
         localStorage.setItem('token', loginUser.token);

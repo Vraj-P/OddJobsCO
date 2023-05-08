@@ -17,7 +17,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    id = models.AutoField(primary_key=True)
+    user_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=120)
     name = models.CharField(max_length=120)
     email = models.EmailField(unique=True, max_length=120)
@@ -45,18 +45,30 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Listing(models.Model):
-    id = models.AutoField(primary_key=True)
+    listing_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=120)
     description = models.TextField()
     completed = models.BooleanField(default=False)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
 
 
-class Filters(models.Model):
-    id = models.AutoField(primary_key=True)
+class Filter(models.Model):
+    filter_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=120)
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
 
-    def _str_(self):
-        return self.title
+
+class Option(models.Model):
+    option_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+
+
+class FilterOption(models.Model):
+    filter_option_id = models.AutoField(primary_key=True)
+    filter = models.ForeignKey(Filter, on_delete=models.CASCADE)
+    option = models.ForeignKey(Option, on_delete=models.CASCADE)
+
+
+class ListingFilter(models.Model):
+    listing_filter_id = models.AutoField(primary_key=True)
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    filter = models.ForeignKey(Filter, on_delete=models.CASCADE)

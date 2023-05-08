@@ -1,6 +1,7 @@
 import graphene
-from .models import User, Listing
+from .models import User, Listing, Filter
 from .mutations.userMutations import RegisterUser, LoginUser
+from .types.filterType import FilterType
 from .types.listingType import ListingType
 from .types.userType import UserType
 from .mutations.listingMutations import CreateListing, UpdateListing, DeleteListing
@@ -11,7 +12,8 @@ class Query(graphene.ObjectType):
     users = graphene.List(UserType)
     user = graphene.Field(UserType, id=graphene.Int(required=True))
     listings = graphene.List(ListingType)
-    listing = graphene.Field(ListingType, id=graphene.Int(required=True))
+    listing = graphene.Field(ListingType, listing_id=graphene.Int(required=True))
+    filters = graphene.List(FilterType, listing_id=graphene.Int())
     listings_by_title = graphene.List(ListingType, title=graphene.String())
     user_listings = graphene.List(
         ListingType, user_id=graphene.Int(required=True))
@@ -25,7 +27,7 @@ class Query(graphene.ObjectType):
     @login_required
     def resolve_user(self, info, id):
         try:
-            return User.objects.get(id=id)
+            return User.objects.get(user_id=id)
         except User.DoesNotExist:
             return None
 
@@ -34,11 +36,18 @@ class Query(graphene.ObjectType):
         return Listing.objects.all()
 
     @login_required
-    def resolve_listing(self, info, id):
+    def resolve_listing(self, info, listing_id):
         try:
-            return Listing.objects.get(id=id)
+            return Listing.objects.get(listing_id=listing_id)
         except Listing.DoesNotExist:
             return None
+
+    @login_required
+    def resolve_filters(self, info, listing_id=None):
+        filters = Filter.objects.filter(listingfilter__listing_id=listing_id).distinct()
+        if not filters:
+            return []
+        return filters
 
     @login_required
     def resolve_listings_by_title(self, info, title):

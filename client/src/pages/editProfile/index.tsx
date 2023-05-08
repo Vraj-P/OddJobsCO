@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { makeStyles } from "tss-react/mui";
 import {
     Button,
     CssBaseline,
@@ -9,51 +8,10 @@ import {
 } from "@mui/material";
 import {useParams} from "react-router-dom";
 import {TestUserData} from "../../testingData";
-
-const useStyles = makeStyles()((theme) => ({
-    container: {
-        // Make column
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "1rem",
-        justifyContent: "center",
-    },
-    root: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "1rem",
-        justifyContent: "center",
-        "& > *": {
-            margin: theme.spacing(1),
-            width: "25ch",
-        },
-    },
-    formContent: {
-        padding: "1rem",
-    },
-    paper: {
-        marginTop: theme.spacing(8),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: "100%", // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-}));
+import {formStyles} from "../../styles/formStyles";
 
 export default function EditProfile() {
-    const { classes, cx } = useStyles();
+    const { classes, cx } = formStyles();
     const { id } = useParams();
     const [profileData, setProfileData] = useState({
         name: TestUserData[Number(id)-1].name,

@@ -1,9 +1,10 @@
-// import React, { useState } from "react";
+import React, {useState} from "react";
 import ListingCard from "./components/ListingCard";
 import { makeStyles } from "tss-react/mui";
 import { Grid, Typography } from "@mui/material";
-import { TestListingCardData, TestFilterGroups } from "../../testingData";
+import { TestListingCardData } from "../../testingData";
 import FilterButton from "./components/FilterButton";
+import {FilterGroups} from "../../filterGroups";
 
 const useStyles = makeStyles()({
   container: {
@@ -21,6 +22,11 @@ const useStyles = makeStyles()({
 
 function ListingsPage() {
   const { classes, cx } = useStyles();
+  const [, setFilterState] = useState({});
+
+  const handleFilterSubmit = (newFilterState: React.SetStateAction<{}>) => {
+      setFilterState(newFilterState);
+  };
 
   return (
     <div>
@@ -40,7 +46,7 @@ function ListingsPage() {
                 sm={6}
                 md={6}
               >
-                <FilterButton filterGroups={TestFilterGroups} />
+                <FilterButton filterGroups={FilterGroups} fullWidth={false} onFilterSubmit={handleFilterSubmit} />
               </Grid>
             </Grid>
           </Grid>

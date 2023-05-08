@@ -1,72 +1,117 @@
 import graphene
-from ..models import User, Listing
+import logging
+from ..models import User, Listing, Filter, Option, ListingFilter, FilterOption
+from ..types.filterType import FilterType
 from ..types.listingType import ListingType
 from graphql_jwt.decorators import login_required
 
 
+def update_filters(listing_data, listing):
+    # Create the associated filters
+    logging.info(listing_data.filters)
+    if listing_data.filters:
+        for filter_input in listing_data.filters:
+            filter_name = filter_input.name
+            new_filter = Filter.objects.filter(name=filter_input.name).first()
+            if not new_filter:
+                new_filter = Filter(name=filter_name)
+                new_filter.save()
+
+            if filter_input.options:
+                for option_input in filter_input.options:
+                    option_name = option_input.name
+                    new_option = Option.objects.filter(name=option_name).first()
+                    if not new_option:
+                        new_option = Option(name=option_name)
+                        new_option.save()
+                    new_filter_option = FilterOption(option=new_option, filter=new_filter)
+                    new_filter_option.save()
+
+            # Create the ListingFilter object that associates the listing with the filter
+            new_listing_filter = ListingFilter(listing=listing, filter=new_filter)
+            new_listing_filter.save()
+
+
+def delete_listing_filters(listing_id):
+    listing = Listing.objects.get(listing_id=listing_id)
+    filters = ListingFilter.objects.filter(listing=listing)
+    filters.delete()
+
+
+class FilterOptionInput(graphene.InputObjectType):
+    name = graphene.String(required=True)
+
+
+class FilterInput(graphene.InputObjectType):
+    name = graphene.String(required=True)
+    options = graphene.List(FilterOptionInput)
+
+
+class ListingInput(graphene.InputObjectType):
+    listing_id = graphene.ID(required=False)
+    title = graphene.String(required=True)
+    description = graphene.String(required=True)
+    completed = graphene.Boolean(required=False)
+    filters = graphene.List(FilterInput)
+
+
 class CreateListing(graphene.Mutation):
-    id = graphene.Int()
     title = graphene.String()
     description = graphene.String()
     completed = graphene.Boolean()
-    price = graphene.Float()
-    listings = graphene.List(ListingType)
+    filters = graphene.List(FilterType)
+    listing_id = graphene.ID()
 
     class Arguments:
-        title = graphene.String()
-        description = graphene.String()
-        price = graphene.Float()
-        user_id = graphene.ID()
+        listing_data = ListingInput(required=True)
+
+    listing = graphene.Field(ListingType)
 
     @login_required
-    def mutate(self, info, title, description, price, user_id):
-        user = User.objects.get(id=user_id)
-        listing = Listing(title=title, description=description,
-                          completed=False, price=price, user=user)
+    def mutate(self, info, listing_data=None):
+        user = info.context.user
+        title = listing_data.title
+        description = listing_data.description
+        completed = False
+
+        # Create the new listing object
+        listing = Listing(user=user, title=title, description=description, completed=completed)
         listing.save()
 
+        update_filters(listing_data, listing)
+
         return CreateListing(
-            id=listing.id,
             title=listing.title,
             description=listing.description,
-            completed=listing.completed,
-            price=listing.price
+            listing_id=listing.listing_id
         )
 
 
 class UpdateListing(graphene.Mutation):
-    id = graphene.Int()
+    listing_id = graphene.ID()
     title = graphene.String()
     description = graphene.String()
     completed = graphene.Boolean()
-    price = graphene.Float()
-    listings = graphene.List(ListingType)
+    filters = graphene.List(FilterType)
 
     class Arguments:
-        id = graphene.ID()
-        title = graphene.String()
-        description = graphene.String()
-        completed = graphene.Boolean()
-        price = graphene.Float()
-        user_id = graphene.ID()
+        listing_data = ListingInput(required=True)
 
     @login_required
-    def mutate(self, info, id, title, description, completed, price, user_id):
-        user = User.objects.get(id=user_id)
-        listing = Listing.objects.get(id=id)
-        listing.title = title
-        listing.description = description
-        listing.completed = completed
-        listing.price = price
+    def mutate(self, info, listing_data=None):
+        user = info.context.user
+        listing = Listing.objects.get(listing_id=listing_data.listing_id)
+        listing.title = listing_data.title
+        listing.description = listing_data.description
+        listing.completed = listing_data.completed
         listing.user = user
         listing.save()
 
         return UpdateListing(
-            id=listing.id,
+            listing_id=listing.listing_id,
             title=listing.title,
             description=listing.description,
             completed=listing.completed,
-            price=listing.price
         )
 
 
@@ -75,13 +120,14 @@ class DeleteListing(graphene.Mutation):
     listings = graphene.List(ListingType)
 
     class Arguments:
-        id = graphene.ID()
+        listing_id = graphene.ID()
 
     @login_required
     def mutate(self, info, id):
         listing = Listing.objects.get(id=id)
+        delete_listing_filters(listing.listing_id)
         listing.delete()
 
         return DeleteListing(
-            id=listing.id
+            listing_id=listing.id
         )

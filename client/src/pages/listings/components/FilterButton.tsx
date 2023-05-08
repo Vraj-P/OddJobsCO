@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, Menu, MenuItem} from "@mui/material";
 import {FilterGroup} from "../../../types";
 
@@ -8,12 +8,20 @@ type FilterState = {
 
 interface FilterButtonProps {
     filterGroups: FilterGroup[];
+    fullWidth: boolean;
+    onFilterSubmit: (filterState: FilterState) => void;
+    defaultFilterState?: FilterState;
 }
 
 function FilterButton (props: FilterButtonProps) {
-    const { filterGroups } = props;
+    const { filterGroups, fullWidth, onFilterSubmit, defaultFilterState } = props;
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [filterState, setFilterState] = useState<FilterState>({});
+
+    useEffect(() => {
+        console.log(defaultFilterState)
+        setFilterState(defaultFilterState || {});
+    }, [defaultFilterState]);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -21,6 +29,7 @@ function FilterButton (props: FilterButtonProps) {
 
     const handleClose = () => {
         console.log(filterState);
+        onFilterSubmit(filterState);
         setAnchorEl(null);
     };
 
@@ -45,7 +54,7 @@ function FilterButton (props: FilterButtonProps) {
 
     return (
         <>
-            <Button disableRipple = {true} variant="contained" color="primary" onClick={handleClick}>
+            <Button disableRipple = {true} variant="contained" color="primary" onClick={handleClick} fullWidth={fullWidth}>
                 Filter
             </Button>
             <Menu
@@ -91,6 +100,6 @@ function FilterButton (props: FilterButtonProps) {
             </Menu>
         </>
     );
-};
+}
 
 export default FilterButton;

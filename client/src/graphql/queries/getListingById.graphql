@@ -1,0 +1,14 @@
+query listing($listingId: Int!) {
+    listing(listingId: $listingId) {
+        listingId
+        title
+        description
+        completed
+        filters(listingId: $listingId) {
+            name
+            options {
+                name
+            }
+        }
+    }
+}
