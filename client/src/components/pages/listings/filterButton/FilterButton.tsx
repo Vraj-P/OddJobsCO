@@ -47,10 +47,10 @@ export const FilterButton: React.FC = () => {
       </IconButton>
       <Drawer anchor="left" open={isDrawerOpen} onClose={handleToggleDrawer(false)}>
         <List className="filterList">
-          <ListItem alignItems={'flex-start'}>
+          <ListItem>
             <Typography variant="h6">Filters</Typography>
           </ListItem>
-          <ListItem className="filterSection">
+          <ListItem className="filterSection" alignItems={'flex-start'}>
             <Typography variant="body1">Location</Typography>
             {locationFilters.map((filter) => (
               <ListItem key={filter}>
@@ -63,7 +63,7 @@ export const FilterButton: React.FC = () => {
               </ListItem>
             ))}
           </ListItem>
-          <ListItem className="filterSection">
+          <ListItem className="filterSection" alignItems={'flex-start'}>
             <Typography variant="body1">Type of Work</Typography>
             {workTypeFilters.map((filter) => (
               <ListItem key={filter}>
@@ -76,7 +76,7 @@ export const FilterButton: React.FC = () => {
               </ListItem>
             ))}
           </ListItem>
-          <ListItem className="filterSection">
+          <ListItem className="filterSection" alignItems={'flex-start'}>
             <Typography variant="body1">Experience of Workers</Typography>
             {experienceFilters.map((filter) => (
               <ListItem key={filter}>
