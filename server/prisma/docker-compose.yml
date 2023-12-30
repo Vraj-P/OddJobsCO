@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "123"
+      MYSQL_DATABASE: oddJobsCo
+      MYSQL_USER: ""
+      MYSQL_PASSWORD: ""
+      MYSQL_CHARSET: utf8
+      MYSQL_COLLATION: utf8_unicode_ci
+    ports:
+      - "3306:3306"
