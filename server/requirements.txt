@@ -1,6 +1,0 @@
-pipenv
-django
-mysqlclient
-graphene-django
-django-graphql-jwt
-django-cors-headers

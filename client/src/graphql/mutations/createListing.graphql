@@ -1,7 +1,0 @@
-#import ListingInput from "../../generated/graphql.ts"
-
-mutation CreateListing($listingData: ListingInput!) {
-    createListing(listingData: $listingData) {
-        listingId
-    }
-}
