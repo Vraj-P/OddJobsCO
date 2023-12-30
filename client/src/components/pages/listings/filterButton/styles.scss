@@ -1,0 +1,23 @@
+// styles.scss
+
+.filterButton {
+  margin-left: auto;
+}
+
+.filterList {
+  width: 400px; /* Adjust width as needed */
+}
+
+.filterSection {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.filterCheckbox {
+  margin-right: 8px;
+}
+
+.filterSubmitButton {
+  margin-top: 16px;
+}

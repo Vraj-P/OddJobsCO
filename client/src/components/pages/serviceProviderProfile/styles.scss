@@ -1,0 +1,58 @@
+// styles.scss
+.profileContainer {
+  max-width: 400px;
+  margin: auto;
+  margin-top: 64px;
+  padding: 24px;
+
+  .MuiCard-root {
+    border: 1px solid #ccc;
+    margin-bottom: 16px;
+  }
+
+  .MuiTypography-h5 {
+    margin-bottom: 16px;
+  }
+
+  .profilePicture {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 16px;
+  }
+
+  .editProfileButton {
+    margin-top: 16px;
+  }
+}
+
+// styles.scss
+.editProfileContainer {
+  max-width: 400px;
+  margin: auto;
+  margin-top: 64px;
+  padding: 24px;
+
+  .MuiCard-root {
+    border: 1px solid #ccc;
+    margin-bottom: 16px;
+  }
+
+  .MuiTypography-h5 {
+    margin-bottom: 16px;
+  }
+
+  .profilePicture {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 16px;
+  }
+
+  .inputField {
+    margin-bottom: 16px;
+  }
+
+  .saveChangesButton {
+    margin-top: 16px;
+  }
+}
+

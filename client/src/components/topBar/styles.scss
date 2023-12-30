@@ -1,0 +1,37 @@
+// styles.scss
+
+.topBar {
+  background-color: #2196f3;
+}
+
+.logo {
+  flex-grow: 1;
+}
+
+.search {
+  position: relative;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.searchIcon {
+  padding: 10px;
+  font-size: 24px;
+  color: #000;
+}
+
+.searchInput {
+  padding: 10px;
+  width: 100%;
+  color: #000;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+
+.profileButtons {
+  margin-left: 16px;
+}
