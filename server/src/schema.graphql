@@ -7,7 +7,9 @@ scalar DateTime
 scalar JSON
 
 type Mutation {
+  edit(user: UserEditInput!): User
   login(user: UserLoginInput!): User
+  logout: User
   register(user: UserRegisterInput!): User
 }
 
@@ -24,6 +26,12 @@ type User {
   name: String!
   password: String!
   updatedAt: Timestamp!
+}
+
+input UserEditInput {
+  email: String!
+  name: String!
+  password: String!
 }
 
 input UserLoginInput {

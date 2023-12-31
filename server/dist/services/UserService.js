@@ -45,7 +45,7 @@ class UserService {
                     },
                 });
                 if (existingUser) {
-                    throw new Error('User with the same email already exists');
+                    throw new Error("User with the same email already exists");
                 }
                 const saltRounds = 10; // Todo: do a better job at hiding this
                 const salt = yield bcrypt.genSalt(saltRounds);
@@ -55,7 +55,7 @@ class UserService {
                         name: user.name,
                         email: user.email,
                         password: hashedPassword,
-                    }
+                    },
                 });
                 return resp;
             }
@@ -73,11 +73,11 @@ class UserService {
                     },
                 });
                 if (!existingUser) {
-                    throw new Error('User not found');
+                    throw new Error("User not found");
                 }
                 const passwordMatch = yield bcrypt.compare(user.password, existingUser.password);
                 if (!passwordMatch) {
-                    throw new Error('Invalid password');
+                    throw new Error("Invalid password");
                 }
                 AuthUtil_1.AuthUtil.generateAuthToken(existingUser, ctx);
                 return existingUser;
@@ -87,15 +87,64 @@ class UserService {
             }
         });
     }
+    static logout(ctx) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const currUser = yield AuthUtil_1.AuthUtil.verifyAndGetUser(ctx);
+                if (!currUser) {
+                    throw new Error("User not authenticated");
+                }
+                yield AuthUtil_1.AuthUtil.invalidateSession(ctx);
+                return currUser;
+            }
+            catch (e) {
+                throw new Error(`Logout failed from UserService.logout: ${e}`);
+            }
+        });
+    }
     static getUsers(ctx) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = yield AuthUtil_1.AuthUtil.verifyAndGetUser(ctx);
                 if (!user) {
-                    throw new Error('Error retrieving logged in user');
+                    throw new Error("Error retrieving logged in user");
                 }
                 const users = yield ctx.prisma.user.findMany({});
                 return users;
+            }
+            catch (e) {
+                throw new Error(`Error fetching users from UserService.getUsers: ${e}`);
+            }
+        });
+    }
+    static edit(user, ctx) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const currUser = yield AuthUtil_1.AuthUtil.verifyAndGetUser(ctx);
+                if (!currUser) {
+                    throw new Error("Error retrieving logged in user");
+                }
+                const existingUser = yield ctx.prisma.user.findUnique({
+                    where: { email: user.email },
+                });
+                if (existingUser) {
+                    throw new Error("email has already been taken");
+                }
+                const saltRounds = 10; // Todo: do a better job at hiding this
+                const salt = yield bcrypt.genSalt(saltRounds);
+                const hashedPassword = yield bcrypt.hash(user.password, salt);
+                const resp = yield ctx.prisma.user.update({
+                    where: {
+                        id: currUser.id,
+                    },
+                    data: {
+                        name: user.name,
+                        email: user.email,
+                        password: hashedPassword,
+                    },
+                });
+                AuthUtil_1.AuthUtil.generateAuthToken(resp, ctx);
+                return resp;
             }
             catch (e) {
                 throw new Error(`Error fetching users from UserService.getUsers: ${e}`);

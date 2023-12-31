@@ -37,14 +37,14 @@ const jwt = __importStar(require("jsonwebtoken"));
 const cookie = __importStar(require("cookie"));
 class AuthUtil {
     static generateAuthToken(user, ctx) {
-        const token = jwt.sign({ email: user.email }, process.env.SECRET_KEY, { expiresIn: '7d' }); // Expires in 7 days
+        const token = jwt.sign({ email: user.email }, process.env.SECRET_KEY, { expiresIn: "7d" }); // Expires in 7 days
         const cookieOptions = {
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000,
             sameSite: true,
         };
-        const cookieString = cookie.serialize('authToken', token, cookieOptions);
-        ctx.res.setHeader('Set-Cookie', cookieString);
+        const cookieString = cookie.serialize("authToken", token, cookieOptions);
+        ctx.res.setHeader("Set-Cookie", cookieString);
     }
     static verifyAndGetUser(ctx) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -61,24 +61,35 @@ class AuthUtil {
     static verifyUser(ctx) {
         const authToken = ctx.req.cookies.authToken;
         if (!authToken) {
-            throw new Error('Authentication token not found');
+            throw new Error("Authentication token not found");
         }
         const decoded = jwt.verify(authToken, process.env.SECRET_KEY);
-        if (typeof decoded === 'string' || !decoded) {
-            throw new Error('Invalid or expired authentication token');
+        if (typeof decoded === "string" || !decoded) {
+            throw new Error("Invalid or expired authentication token");
         }
         return decoded;
+    }
+    static invalidateSession(ctx) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const cookieOptions = {
+                httpOnly: true,
+                expires: new Date(0),
+                sameSite: true,
+            };
+            const cookieString = cookie.serialize("authToken", "", cookieOptions);
+            ctx.res.setHeader("Set-Cookie", cookieString);
+        });
     }
     static getUser(email, ctx) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = yield ctx.prisma.user.findUnique({
                     where: {
-                        email: email
+                        email: email,
                     },
                 });
                 if (!user) {
-                    throw new Error('User not found');
+                    throw new Error("User not found");
                 }
                 return user;
             }

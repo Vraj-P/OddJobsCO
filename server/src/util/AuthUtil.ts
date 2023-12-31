@@ -1,12 +1,16 @@
-import {Context} from '../context';
-import * as jwt from 'jsonwebtoken';
-import {JwtPayload} from "jsonwebtoken";
+import { Context } from "../context";
+import * as jwt from "jsonwebtoken";
+import { JwtPayload } from "jsonwebtoken";
 import * as cookie from "cookie";
-import {User} from "@prisma/client";
+import { User } from "@prisma/client";
 
 export class AuthUtil {
   public static generateAuthToken(user: User, ctx: Context): void {
-    const token = jwt.sign({ email: user.email }, process.env.SECRET_KEY as string, { expiresIn: '7d' }); // Expires in 7 days
+    const token = jwt.sign(
+      { email: user.email },
+      process.env.SECRET_KEY as string,
+      { expiresIn: "7d" }
+    ); // Expires in 7 days
 
     const cookieOptions = {
       httpOnly: true,
@@ -14,9 +18,9 @@ export class AuthUtil {
       sameSite: true,
     };
 
-    const cookieString = cookie.serialize('authToken', token, cookieOptions);
+    const cookieString = cookie.serialize("authToken", token, cookieOptions);
 
-    ctx.res.setHeader('Set-Cookie', cookieString);
+    ctx.res.setHeader("Set-Cookie", cookieString);
   }
 
   public static async verifyAndGetUser(ctx: Context) {
@@ -25,40 +29,54 @@ export class AuthUtil {
       const user = await AuthUtil.getUser(decoded.email, ctx); // todo: prevent password from being passed back
       return user;
     } catch (e) {
-      throw new Error(`Error verifying and getting user from AuthUtil.verifyAndGetUser: ${e}`)
+      throw new Error(
+        `Error verifying and getting user from AuthUtil.verifyAndGetUser: ${e}`
+      );
     }
   }
 
   public static verifyUser(ctx: Context): JwtPayload {
     const authToken = ctx.req.cookies.authToken;
     if (!authToken) {
-      throw new Error('Authentication token not found');
+      throw new Error("Authentication token not found");
     }
 
     const decoded = jwt.verify(authToken, process.env.SECRET_KEY as string);
 
-    if (typeof decoded === 'string' || !decoded) {
-      throw new Error('Invalid or expired authentication token');
+    if (typeof decoded === "string" || !decoded) {
+      throw new Error("Invalid or expired authentication token");
     }
 
     return decoded;
+  }
+
+  public static async invalidateSession(ctx: Context) {
+    const cookieOptions = {
+      httpOnly: true,
+      expires: new Date(0),
+      sameSite: true,
+    };
+
+    const cookieString = cookie.serialize("authToken", "", cookieOptions);
+
+    ctx.res.setHeader("Set-Cookie", cookieString);
   }
 
   public static async getUser(email: string, ctx: Context) {
     try {
       const user = await ctx.prisma.user.findUnique({
         where: {
-          email: email
+          email: email,
         },
       });
 
       if (!user) {
-        throw new Error('User not found');
+        throw new Error("User not found");
       }
 
       return user;
     } catch (e) {
-      throw new Error(`Error fetching user from AuthUtil.getUser: ${e}`)
+      throw new Error(`Error fetching user from AuthUtil.getUser: ${e}`);
     }
   }
 }

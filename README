@@ -1,0 +1,51 @@
+
+
+start db
+```
+cd server/prisma 
+docker-compose up
+```
+
+setting up db
+```
+cd server/prisma
+npx prisma generate
+npx prisma migrate status
+npx prisma migrate dev
+```
+
+getting other peoples migrations
+```
+cd server/prisma
+npx prisma migrate dev
+```
+
+making changes to db
+```
+cd server/prisma
+npx prisma db push
+```
+
+making migration
+```
+cd server/prisma
+npx migrate dev
+```
+
+install server dependencies
+```
+cd server 
+npm i
+```
+
+turn js to ts in real-time
+```
+cd server
+npm run build:watch
+```
+
+start server
+```
+cd server
+npm run start
+```
