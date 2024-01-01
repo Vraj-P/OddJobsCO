@@ -75,9 +75,9 @@ export interface NexusGenObjects {
   Query: {};
   User: { // root type
     createdAt: NexusGenScalars['Timestamp']; // Timestamp!
-    createdJobs?: Array<NexusGenRootTypes['Job'] | null> | null; // [Job]
     email: string; // String!
     id: string; // ID!
+    jobs?: Array<NexusGenRootTypes['Job'] | null> | null; // [Job]
     name: string; // String!
     password: string; // String!
     updatedAt: NexusGenScalars['Timestamp']; // Timestamp!
@@ -117,9 +117,9 @@ export interface NexusGenFieldTypes {
   }
   User: { // field return type
     createdAt: NexusGenScalars['Timestamp']; // Timestamp!
-    createdJobs: Array<NexusGenRootTypes['Job'] | null> | null; // [Job]
     email: string; // String!
     id: string; // ID!
+    jobs: Array<NexusGenRootTypes['Job'] | null> | null; // [Job]
     name: string; // String!
     password: string; // String!
     updatedAt: NexusGenScalars['Timestamp']; // Timestamp!
@@ -149,9 +149,9 @@ export interface NexusGenFieldTypeNames {
   }
   User: { // field return type name
     createdAt: 'Timestamp'
-    createdJobs: 'Job'
     email: 'String'
     id: 'ID'
+    jobs: 'Job'
     name: 'String'
     password: 'String'
     updatedAt: 'Timestamp'

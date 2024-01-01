@@ -14,7 +14,7 @@ model User {
   name      String
   email     String   @unique
   password  String
-  Job       Job[]
+  jobs       Job[]
 }
 
 model Job {

@@ -1,6 +1,6 @@
 import { Context } from "../../../context";
-import { nonNull, queryType, list, extendType } from "nexus";
-import { User, UserRegisterInput } from "../../types/UserTypes";
+import { list, extendType } from "nexus";
+import { User } from "../../types/UserTypes";
 import { UserService } from "../../../services/UserService";
 
 export const UserQueries = extendType({
