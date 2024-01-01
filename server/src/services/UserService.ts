@@ -1,6 +1,7 @@
 import { Context } from "../context";
 import * as bcrypt from "bcrypt";
 import { AuthUtil } from "../util/AuthUtil";
+import {NexusGenRootTypes} from "../typings";
 
 interface RegisterUser {
   name: string;
@@ -98,7 +99,7 @@ export class UserService {
     }
   }
 
-  public static async getUsers(ctx: Context) {
+  public static async getUsers(ctx: Context): Promise<NexusGenRootTypes['User'][]> {
     try {
       const user = await AuthUtil.verifyAndGetUser(ctx);
 
@@ -106,7 +107,12 @@ export class UserService {
         throw new Error("Error retrieving logged in user");
       }
 
-      const users = await ctx.prisma.user.findMany({});
+      const users = await ctx.prisma.user.findMany({
+        include: {
+          Job: true
+        }
+      })
+      console.log(users)
       return users;
     } catch (e) {
       throw new Error(`Error fetching users from UserService.getUsers: ${e}`);

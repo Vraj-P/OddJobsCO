@@ -39,6 +39,7 @@ scalar Timestamp
 
 type User {
   createdAt: Timestamp!
+  createdJobs: [Job]
   email: String!
   id: ID!
   name: String!
