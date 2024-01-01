@@ -109,7 +109,12 @@ class UserService {
                 if (!user) {
                     throw new Error("Error retrieving logged in user");
                 }
-                const users = yield ctx.prisma.user.findMany({});
+                const users = yield ctx.prisma.user.findMany({
+                    include: {
+                        Job: true
+                    }
+                });
+                console.log(users);
                 return users;
             }
             catch (e) {

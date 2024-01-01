@@ -12,10 +12,6 @@ export class JobService {
     try {
       const user = await AuthUtil.verifyAndGetUser(ctx);
 
-      if (!user) {
-        throw new Error("Error retrieving logged in user");
-      }
-
       const jobs = await ctx.prisma.job.findMany({});
       return jobs;
     } catch (e) {
@@ -26,10 +22,6 @@ export class JobService {
   public static async postJob(job: PostJob, ctx: Context) {
     try {
       const user = await AuthUtil.verifyAndGetUser(ctx);
-
-      if (!user) {
-        throw new Error("Error retrieving logged in user");
-      }
 
       const newJob = await ctx.prisma.job.create({
         data: {

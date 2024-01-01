@@ -16,9 +16,6 @@ class JobService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = yield AuthUtil_1.AuthUtil.verifyAndGetUser(ctx);
-                if (!user) {
-                    throw new Error("Error retrieving logged in user");
-                }
                 const jobs = yield ctx.prisma.job.findMany({});
                 return jobs;
             }
@@ -31,9 +28,6 @@ class JobService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = yield AuthUtil_1.AuthUtil.verifyAndGetUser(ctx);
-                if (!user) {
-                    throw new Error("Error retrieving logged in user");
-                }
                 const newJob = yield ctx.prisma.job.create({
                     data: {
                         title: job.title,
