@@ -10,7 +10,7 @@ export const User = objectType({
     t.nonNull.string("name");
     t.nonNull.string("email");
     t.nonNull.string("password");
-    t.nullable.list.field('createdJobs', {type: Job})
+    t.nullable.list.field('jobs', {type: Job})
   },
 });
 

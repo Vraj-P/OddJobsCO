@@ -109,10 +109,10 @@ export class UserService {
 
       const users = await ctx.prisma.user.findMany({
         include: {
-          Job: true
+          jobs: true
         }
       })
-      console.log(users)
+
       return users;
     } catch (e) {
       throw new Error(`Error fetching users from UserService.getUsers: ${e}`);
