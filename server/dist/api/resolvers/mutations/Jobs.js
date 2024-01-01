@@ -9,18 +9,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserQueries = void 0;
+exports.JobMutations = void 0;
 const nexus_1 = require("nexus");
-const UserTypes_1 = require("../../types/UserTypes");
-const UserService_1 = require("../../../services/UserService");
-exports.UserQueries = (0, nexus_1.extendType)({
-    type: "Query",
+const JobTypes_1 = require("../../types/JobTypes");
+const JobService_1 = require("../../../services/JobService");
+exports.JobMutations = (0, nexus_1.extendType)({
+    type: "Mutation",
     definition(t) {
-        t.field("getUsers", {
-            type: (0, nexus_1.list)(UserTypes_1.User),
-            args: {},
-            resolve: (_, {}, ctx) => __awaiter(this, void 0, void 0, function* () {
-                const resp = yield UserService_1.UserService.getUsers(ctx);
+        t.field("postJob", {
+            type: JobTypes_1.Job,
+            args: {
+                job: (0, nexus_1.nonNull)(JobTypes_1.PostJobInput),
+            },
+            resolve: (_, { job }, ctx) => __awaiter(this, void 0, void 0, function* () {
+                const resp = yield JobService_1.JobService.postJob(job, ctx);
                 return resp;
             }),
         });

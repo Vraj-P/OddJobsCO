@@ -1,10 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.timestampScalar = exports.jsonScalar = exports.dateTimeScalar = exports.UserQueries = exports.UserMutations = void 0;
+exports.timestampScalar = exports.jsonScalar = exports.dateTimeScalar = exports.JobQueries = exports.JobMutations = exports.UserQueries = exports.UserMutations = void 0;
 var Users_1 = require("./resolvers/mutations/Users");
 Object.defineProperty(exports, "UserMutations", { enumerable: true, get: function () { return Users_1.UserMutations; } });
 var Users_2 = require("./resolvers/queries/Users");
 Object.defineProperty(exports, "UserQueries", { enumerable: true, get: function () { return Users_2.UserQueries; } });
+var Jobs_1 = require("./resolvers/mutations/Jobs");
+Object.defineProperty(exports, "JobMutations", { enumerable: true, get: function () { return Jobs_1.JobMutations; } });
+var Jobs_2 = require("./resolvers/queries/Jobs");
+Object.defineProperty(exports, "JobQueries", { enumerable: true, get: function () { return Jobs_2.JobQueries; } });
 var Scalars_1 = require("./types/Scalars");
 Object.defineProperty(exports, "dateTimeScalar", { enumerable: true, get: function () { return Scalars_1.dateTimeScalar; } });
 Object.defineProperty(exports, "jsonScalar", { enumerable: true, get: function () { return Scalars_1.jsonScalar; } });

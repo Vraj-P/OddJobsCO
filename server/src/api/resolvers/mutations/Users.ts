@@ -4,7 +4,7 @@ import {
   UserLoginInput,
   UserRegisterInput,
   UserEditInput,
-} from "../../types/UserResponse";
+} from "../../types/UserTypes";
 import { Context } from "../../../context";
 import { UserService } from "../../../services/UserService";
 

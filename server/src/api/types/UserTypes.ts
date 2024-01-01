@@ -1,4 +1,5 @@
-import { enumType, inputObjectType, objectType } from "nexus";
+import { inputObjectType, objectType } from "nexus";
+import {Job} from "./JobTypes";
 
 export const User = objectType({
   name: "User",
@@ -9,6 +10,7 @@ export const User = objectType({
     t.nonNull.string("name");
     t.nonNull.string("email");
     t.nonNull.string("password");
+    t.nullable.list.field('createdJobs', {type: Job})
   },
 });
 

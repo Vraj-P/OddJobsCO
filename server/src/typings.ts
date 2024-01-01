@@ -26,6 +26,11 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  PostJobInput: { // input type
+    description: string; // String!
+    price: number; // Int!
+    title: string; // String!
+  }
   UserEditInput: { // input type
     email: string; // String!
     name: string; // String!
@@ -57,10 +62,20 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Job: { // root type
+    createdAt: NexusGenScalars['Timestamp']; // Timestamp!
+    description: string; // String!
+    id: string; // ID!
+    price: number; // Int!
+    title: string; // String!
+    updatedAt: NexusGenScalars['Timestamp']; // Timestamp!
+    userId: string; // String!
+  }
   Mutation: {};
   Query: {};
   User: { // root type
     createdAt: NexusGenScalars['Timestamp']; // Timestamp!
+    createdJobs?: Array<NexusGenRootTypes['Job'] | null> | null; // [Job]
     email: string; // String!
     id: string; // ID!
     name: string; // String!
@@ -80,17 +95,29 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Job: { // field return type
+    createdAt: NexusGenScalars['Timestamp']; // Timestamp!
+    description: string; // String!
+    id: string; // ID!
+    price: number; // Int!
+    title: string; // String!
+    updatedAt: NexusGenScalars['Timestamp']; // Timestamp!
+    userId: string; // String!
+  }
   Mutation: { // field return type
     edit: NexusGenRootTypes['User'] | null; // User
     login: NexusGenRootTypes['User'] | null; // User
     logout: NexusGenRootTypes['User'] | null; // User
+    postJob: NexusGenRootTypes['Job'] | null; // Job
     register: NexusGenRootTypes['User'] | null; // User
   }
   Query: { // field return type
+    getJobs: Array<NexusGenRootTypes['Job'] | null> | null; // [Job]
     getUsers: Array<NexusGenRootTypes['User'] | null> | null; // [User]
   }
   User: { // field return type
     createdAt: NexusGenScalars['Timestamp']; // Timestamp!
+    createdJobs: Array<NexusGenRootTypes['Job'] | null> | null; // [Job]
     email: string; // String!
     id: string; // ID!
     name: string; // String!
@@ -100,17 +127,29 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Job: { // field return type name
+    createdAt: 'Timestamp'
+    description: 'String'
+    id: 'ID'
+    price: 'Int'
+    title: 'String'
+    updatedAt: 'Timestamp'
+    userId: 'String'
+  }
   Mutation: { // field return type name
     edit: 'User'
     login: 'User'
     logout: 'User'
+    postJob: 'Job'
     register: 'User'
   }
   Query: { // field return type name
+    getJobs: 'Job'
     getUsers: 'User'
   }
   User: { // field return type name
     createdAt: 'Timestamp'
+    createdJobs: 'Job'
     email: 'String'
     id: 'ID'
     name: 'String'
@@ -126,6 +165,9 @@ export interface NexusGenArgTypes {
     }
     login: { // args
       user: NexusGenInputs['UserLoginInput']; // UserLoginInput!
+    }
+    postJob: { // args
+      job: NexusGenInputs['PostJobInput']; // PostJobInput!
     }
     register: { // args
       user: NexusGenInputs['UserRegisterInput']; // UserRegisterInput!
