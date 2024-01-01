@@ -1,4 +1,4 @@
-import { enumType, inputObjectType, objectType } from "nexus";
+import { inputObjectType, objectType } from "nexus";
 
 export const User = objectType({
   name: "User",

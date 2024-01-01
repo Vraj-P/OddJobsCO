@@ -8,10 +8,22 @@ datasource db {
 }
 
 model User {
-  id              String           @id @default(cuid())
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  name            String
-  email           String           @unique
-  password        String
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  email     String   @unique
+  password  String
+  Job       Job[]
+}
+
+model Job {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String
+  description String
+  price       Int
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
 }

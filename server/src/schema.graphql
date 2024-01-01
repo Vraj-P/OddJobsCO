@@ -6,14 +6,32 @@ scalar DateTime
 
 scalar JSON
 
+type Job {
+  createdAt: Timestamp!
+  description: String!
+  id: ID!
+  price: Int!
+  title: String!
+  updatedAt: Timestamp!
+  userId: String!
+}
+
 type Mutation {
   edit(user: UserEditInput!): User
   login(user: UserLoginInput!): User
   logout: User
+  postJob(job: PostJobInput!): Job
   register(user: UserRegisterInput!): User
 }
 
+input PostJobInput {
+  description: String!
+  price: Int!
+  title: String!
+}
+
 type Query {
+  getJobs: [Job]
   getUsers: [User]
 }
 
